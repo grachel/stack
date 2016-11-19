@@ -43,3 +43,6 @@ Do wykonania aplikacji zostaną użyte:
 
 ## 4. Diagram ERD
 ![Diagram ERD](https://s15.postimg.org/sbh3c69uj/ERD.png)
+
+## 5. Diagram UML
+[![diagram.png](https://s16.postimg.org/gz8g2klc5/diagram.png)](https://postimg.org/image/gz8g2klc1/)
