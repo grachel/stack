@@ -40,3 +40,6 @@ Do wykonania aplikacji zostaną użyte:
 * Spring Framework,
 * Hibernate,
 * Thymeleaf.
+
+## 4. Diagram ERD
+![Diagram ERD](https://s15.postimg.org/sbh3c69uj/ERD.png)
