@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>com/stack/model/mappings/BadgesEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/CommentariesEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/PostlinksEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/PostsEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/PosttagsEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/TagsEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/UsersEntity.xml</mapping-file>
+        <mapping-file>com/stack/model/mappings/VotesEntity.xml</mapping-file>
+        <class>com.stack.model.entities.BadgesEntity</class>
+        <class>com.stack.model.entities.CommentariesEntity</class>
+        <class>com.stack.model.entities.PostlinksEntity</class>
+        <class>com.stack.model.entities.PostsEntity</class>
+        <class>com.stack.model.entities.PosttagsEntity</class>
+        <class>com.stack.model.entities.TagsEntity</class>
+        <class>com.stack.model.entities.UsersEntity</class>
+        <class>com.stack.model.entities.VotesEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-54-247-118-36.eu-west-1.compute.amazonaws.com/de23md1m4q7ru7?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory?ssl&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.username" value="eykhyhugrgpvir"/>
+            <property name="hibernate.connection.password" value="BNIV8UiwGzhVFpQvdc-MfMiY5j"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>

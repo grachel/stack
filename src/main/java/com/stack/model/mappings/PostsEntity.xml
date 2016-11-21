@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.stack.model.entities.PostsEntity">
+        <table name="posts" schema="public" catalog="de23md1m4q7ru7"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="-1"/>
+            </id>
+            <basic name="posttype">
+                <column name="posttype"/>
+            </basic>
+            <basic name="acceptedanswerid">
+                <column name="acceptedanswerid" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="parentid">
+                <column name="parentid" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="creationdate">
+                <column name="creationdate" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="score">
+                <column name="score" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="body">
+                <column name="body"/>
+            </basic>
+            <basic name="owneruserid">
+                <column name="owneruserid" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="lasteditoruserid">
+                <column name="lasteditoruserid" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="lasteditdate">
+                <column name="lasteditdate" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="title">
+                <column name="title" nullable="false"/>
+            </basic>
+            <basic name="tags">
+                <column name="tags" nullable="false"/>
+            </basic>
+            <basic name="closeddate">
+                <column name="closeddate" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="closedreason">
+                <column name="closedreason" nullable="false"/>
+            </basic>
+            <many-to-one name="postsByAcceptedanswerid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+                <join-column name="acceptedanswerid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="postsByParentid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+                <join-column name="parentid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="usersByOwneruserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+                <join-column name="owneruserid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="usersByLasteditoruserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+                <join-column name="lasteditoruserid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="commentariesById" mapped-by="postsByPostid"
+                         target-entity="com.stack.model.entities.CommentariesEntity"/>
+            <one-to-many name="postlinksesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.PostlinksEntity"/>
+            <one-to-many name="postlinksesById_0" mapped-by="postsByRelatedpostid"
+                         target-entity="com.stack.model.entities.PostlinksEntity"/>
+            <one-to-many name="postsesById" mapped-by="postsByAcceptedanswerid" target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many name="postsesById_0" mapped-by="postsByParentid" target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many name="posttagsesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.PosttagsEntity"/>
+            <one-to-many name="votesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.VotesEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>

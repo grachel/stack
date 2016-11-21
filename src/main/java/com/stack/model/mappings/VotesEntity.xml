@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.stack.model.entities.VotesEntity">
+        <table name="votes" schema="public" catalog="de23md1m4q7ru7"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="-1"/>
+            </id>
+            <basic name="postid">
+                <column name="postid" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="userid">
+                <column name="userid" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="creationdate">
+                <column name="creationdate" nullable="false" precision="-1"/>
+            </basic>
+            <many-to-one name="postsByPostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+                <join-column name="postid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+            <many-to-one name="usersByUserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+                <join-column name="userid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.stack.model.entities.UsersEntity">
+        <table name="users" schema="public" catalog="de23md1m4q7ru7"/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="-1"/>
+            </id>
+            <basic name="reputation">
+                <column name="reputation" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="creationdate">
+                <column name="creationdate" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="displayname">
+                <column name="displayname"/>
+            </basic>
+            <basic name="lastaccessdate">
+                <column name="lastaccessdate" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="websiteurl">
+                <column name="websiteurl" nullable="false"/>
+            </basic>
+            <basic name="aboutme">
+                <column name="aboutme" nullable="false"/>
+            </basic>
+            <basic name="upvotes">
+                <column name="upvotes" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="downvotes">
+                <column name="downvotes" nullable="false" precision="-1"/>
+            </basic>
+            <basic name="email">
+                <column name="email"/>
+            </basic>
+            <one-to-many name="badgesById" mapped-by="usersByUserid" target-entity="com.stack.model.entities.BadgesEntity"/>
+            <one-to-many name="commentariesById" mapped-by="usersByUserid"
+                         target-entity="com.stack.model.entities.CommentariesEntity"/>
+            <one-to-many name="postsesById" mapped-by="usersByOwneruserid" target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many name="postsesById_0" mapped-by="usersByLasteditoruserid"
+                         target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many name="votesById" mapped-by="usersByUserid" target-entity="com.stack.model.entities.VotesEntity"/>
+        </attributes>
+    </entity>
+</entity-mappings>
