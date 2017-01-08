@@ -77,7 +77,7 @@ public class BadgesEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "userid", referencedColumnName = "id")
+    @JoinColumn(name = "user", referencedColumnName = "id")
     public UsersEntity getUsersByUserid() {
         return usersByUserid;
     }

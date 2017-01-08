@@ -51,7 +51,7 @@ public class PosttagsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "postid", referencedColumnName = "id")
+    @JoinColumn(name = "post", referencedColumnName = "id")
     public PostsEntity getPostsByPostid() {
         return postsByPostid;
     }
@@ -61,12 +61,23 @@ public class PosttagsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tagid", referencedColumnName = "id")
+    @JoinColumn(name = "tag", referencedColumnName = "id")
     public TagsEntity getTagsByTagid() {
         return tagsByTagid;
     }
 
     public void setTagsByTagid(TagsEntity tagsByTagid) {
         this.tagsByTagid = tagsByTagid;
+    }
+
+    private String id;
+
+    @Id
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

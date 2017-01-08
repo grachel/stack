@@ -247,7 +247,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "acceptedanswerid", referencedColumnName = "id")
+    @JoinColumn(name = "acceptedanswer", referencedColumnName = "id")
     public PostsEntity getPostsByAcceptedanswerid() {
         return postsByAcceptedanswerid;
     }
@@ -266,7 +266,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "parentid", referencedColumnName = "id")
+    @JoinColumn(name = "parent", referencedColumnName = "id")
     public PostsEntity getPostsByParentid() {
         return postsByParentid;
     }
@@ -285,7 +285,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "owneruserid", referencedColumnName = "id")
+    @JoinColumn(name = "owneruser", referencedColumnName = "id")
     public UsersEntity getUsersByOwneruserid() {
         return usersByOwneruserid;
     }
@@ -295,7 +295,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "lasteditoruserid", referencedColumnName = "id")
+    @JoinColumn(name = "lasteditoruser", referencedColumnName = "id")
     public UsersEntity getUsersByLasteditoruserid() {
         return usersByLasteditoruserid;
     }

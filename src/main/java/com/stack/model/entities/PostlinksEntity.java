@@ -79,7 +79,7 @@ public class PostlinksEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "postid", referencedColumnName = "id")
+    @JoinColumn(name = "post", referencedColumnName = "id")
     public PostsEntity getPostsByPostid() {
         return postsByPostid;
     }
@@ -89,7 +89,7 @@ public class PostlinksEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "relatedpostid", referencedColumnName = "id")
+    @JoinColumn(name = "relatedpost", referencedColumnName = "id")
     public PostsEntity getPostsByRelatedpostid() {
         return postsByRelatedpostid;
     }

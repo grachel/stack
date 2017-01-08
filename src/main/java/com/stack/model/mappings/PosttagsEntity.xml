@@ -5,6 +5,7 @@
     <entity class="com.stack.model.entities.PosttagsEntity">
         <table name="posttags" schema="public" catalog="de23md1m4q7ru7"/>
         <attributes>
+            <id name="id"/>
             <basic name="postid">
                 <column name="postid" nullable="false" precision="-1"/>
             </basic>

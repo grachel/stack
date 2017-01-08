@@ -104,7 +104,7 @@ public class CommentariesEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "postid", referencedColumnName = "id")
+    @JoinColumn(name = "post", referencedColumnName = "id")
     public PostsEntity getPostsByPostid() {
         return postsByPostid;
     }
@@ -114,7 +114,7 @@ public class CommentariesEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "userid", referencedColumnName = "id")
+    @JoinColumn(name = "user", referencedColumnName = "id")
     public UsersEntity getUsersByUserid() {
         return usersByUserid;
     }
