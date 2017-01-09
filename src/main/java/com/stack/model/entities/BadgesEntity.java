@@ -3,9 +3,6 @@ package com.stack.model.entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-/**
- * Created by grzesiek on 2017-01-09.
- */
 @Entity
 @Table(name = "badges", schema = "public", catalog = "de23md1m4q7ru7")
 public class BadgesEntity {
@@ -51,9 +48,7 @@ public class BadgesEntity {
 
         BadgesEntity that = (BadgesEntity) o;
 
-        if (id != that.id) return false;
-
-        return true;
+        return id == that.id;
     }
 
     @Override

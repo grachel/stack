@@ -2,9 +2,6 @@ package com.stack.model.entities;
 
 import javax.persistence.*;
 
-/**
- * Created by grzesiek on 2017-01-09.
- */
 @Entity
 @Table(name = "posttags", schema = "public", catalog = "de23md1m4q7ru7")
 public class PosttagsEntity {
@@ -29,15 +26,12 @@ public class PosttagsEntity {
 
         PosttagsEntity that = (PosttagsEntity) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-
-        return true;
+        return id != null ? id.equals(that.id) : that.id == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 
     @ManyToOne

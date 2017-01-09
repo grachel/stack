@@ -1,8 +1,5 @@
 package com.stack.model.entities;
 
-/**
- * Created by grzesiek on 2017-01-09.
- */
 public enum Entities {
     User(UsersEntity.class),
     Badge(BadgesEntity.class),
@@ -15,7 +12,7 @@ public enum Entities {
 
     public Class<?> value;
 
-    private Entities(Class<?> c) {
+    Entities(Class<?> c) {
         value = c;
     }
 }

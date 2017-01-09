@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-/**
- * Created by grzesiek on 2017-01-09.
- */
 @Entity
 @Table(name = "users", schema = "public", catalog = "de23md1m4q7ru7")
 public class UsersEntity {
