@@ -3,6 +3,9 @@ package com.stack.model.entities;
 import javax.persistence.*;
 import java.util.Collection;
 
+/**
+ * Created by grzesiek on 2017-01-09.
+ */
 @Entity
 @Table(name = "tags", schema = "public", catalog = "de23md1m4q7ru7")
 public class TagsEntity {
@@ -11,7 +14,7 @@ public class TagsEntity {
     private Collection<PosttagsEntity> posttagsesById;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -21,7 +24,7 @@ public class TagsEntity {
     }
 
     @Basic
-    @Column(name = "tag", nullable = true, length = -1)
+    @Column(name = "tag")
     public String getTag() {
         return tag;
     }

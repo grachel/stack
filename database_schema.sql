@@ -135,6 +135,8 @@ CREATE TABLE users (
     reputation integer,
     creationdate timestamp without time zone DEFAULT now(),
     displayname text NOT NULL,
+    login text NOT NULL,
+    password text NOT NULL,
     lastaccessdate timestamp without time zone,
     websiteurl text,
     aboutme text,

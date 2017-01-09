@@ -17,6 +17,12 @@
             <basic name="displayname">
                 <column name="displayname"/>
             </basic>
+            <basic name="login">
+                <column name="login"/>
+            </basic>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
             <basic name="lastaccessdate">
                 <column name="lastaccessdate" nullable="false" precision="-1"/>
             </basic>

@@ -4,18 +4,17 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+/**
+ * Created by grzesiek on 2017-01-09.
+ */
 @Entity
 @Table(name = "posts", schema = "public", catalog = "de23md1m4q7ru7")
 public class PostsEntity {
     private int id;
     private String posttype;
-    private Integer acceptedanswerid;
-    private Integer parentid;
     private Timestamp creationdate;
     private Integer score;
     private String body;
-    private Integer owneruserid;
-    private Integer lasteditoruserid;
     private Timestamp lasteditdate;
     private String title;
     private String tags;
@@ -34,7 +33,7 @@ public class PostsEntity {
     private Collection<VotesEntity> votesById;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -44,7 +43,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "posttype", nullable = false, length = -1)
+    @Column(name = "posttype")
     public String getPosttype() {
         return posttype;
     }
@@ -54,27 +53,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "acceptedanswerid", nullable = true)
-    public Integer getAcceptedanswerid() {
-        return acceptedanswerid;
-    }
-
-    public void setAcceptedanswerid(Integer acceptedanswerid) {
-        this.acceptedanswerid = acceptedanswerid;
-    }
-
-    @Basic
-    @Column(name = "parentid", nullable = true)
-    public Integer getParentid() {
-        return parentid;
-    }
-
-    public void setParentid(Integer parentid) {
-        this.parentid = parentid;
-    }
-
-    @Basic
-    @Column(name = "creationdate", nullable = true)
+    @Column(name = "creationdate")
     public Timestamp getCreationdate() {
         return creationdate;
     }
@@ -84,7 +63,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "score", nullable = true)
+    @Column(name = "score")
     public Integer getScore() {
         return score;
     }
@@ -94,7 +73,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "body", nullable = false, length = -1)
+    @Column(name = "body")
     public String getBody() {
         return body;
     }
@@ -104,27 +83,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "owneruserid", nullable = true)
-    public Integer getOwneruserid() {
-        return owneruserid;
-    }
-
-    public void setOwneruserid(Integer owneruserid) {
-        this.owneruserid = owneruserid;
-    }
-
-    @Basic
-    @Column(name = "lasteditoruserid", nullable = true)
-    public Integer getLasteditoruserid() {
-        return lasteditoruserid;
-    }
-
-    public void setLasteditoruserid(Integer lasteditoruserid) {
-        this.lasteditoruserid = lasteditoruserid;
-    }
-
-    @Basic
-    @Column(name = "lasteditdate", nullable = true)
+    @Column(name = "lasteditdate")
     public Timestamp getLasteditdate() {
         return lasteditdate;
     }
@@ -134,7 +93,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "title", nullable = true, length = -1)
+    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -144,7 +103,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "tags", nullable = true, length = -1)
+    @Column(name = "tags")
     public String getTags() {
         return tags;
     }
@@ -154,7 +113,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "closeddate", nullable = true)
+    @Column(name = "closeddate")
     public Timestamp getCloseddate() {
         return closeddate;
     }
@@ -164,7 +123,7 @@ public class PostsEntity {
     }
 
     @Basic
-    @Column(name = "closedreason", nullable = true, length = -1)
+    @Column(name = "closedreason")
     public String getClosedreason() {
         return closedreason;
     }
@@ -181,21 +140,6 @@ public class PostsEntity {
         PostsEntity that = (PostsEntity) o;
 
         if (id != that.id) return false;
-        if (posttype != null ? !posttype.equals(that.posttype) : that.posttype != null) return false;
-        if (acceptedanswerid != null ? !acceptedanswerid.equals(that.acceptedanswerid) : that.acceptedanswerid != null)
-            return false;
-        if (parentid != null ? !parentid.equals(that.parentid) : that.parentid != null) return false;
-        if (creationdate != null ? !creationdate.equals(that.creationdate) : that.creationdate != null) return false;
-        if (score != null ? !score.equals(that.score) : that.score != null) return false;
-        if (body != null ? !body.equals(that.body) : that.body != null) return false;
-        if (owneruserid != null ? !owneruserid.equals(that.owneruserid) : that.owneruserid != null) return false;
-        if (lasteditoruserid != null ? !lasteditoruserid.equals(that.lasteditoruserid) : that.lasteditoruserid != null)
-            return false;
-        if (lasteditdate != null ? !lasteditdate.equals(that.lasteditdate) : that.lasteditdate != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
-        if (closeddate != null ? !closeddate.equals(that.closeddate) : that.closeddate != null) return false;
-        if (closedreason != null ? !closedreason.equals(that.closedreason) : that.closedreason != null) return false;
 
         return true;
     }
@@ -204,13 +148,9 @@ public class PostsEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (posttype != null ? posttype.hashCode() : 0);
-        result = 31 * result + (acceptedanswerid != null ? acceptedanswerid.hashCode() : 0);
-        result = 31 * result + (parentid != null ? parentid.hashCode() : 0);
         result = 31 * result + (creationdate != null ? creationdate.hashCode() : 0);
         result = 31 * result + (score != null ? score.hashCode() : 0);
         result = 31 * result + (body != null ? body.hashCode() : 0);
-        result = 31 * result + (owneruserid != null ? owneruserid.hashCode() : 0);
-        result = 31 * result + (lasteditoruserid != null ? lasteditoruserid.hashCode() : 0);
         result = 31 * result + (lasteditdate != null ? lasteditdate.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (tags != null ? tags.hashCode() : 0);
@@ -247,7 +187,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "acceptedanswer", referencedColumnName = "id")
+    @JoinColumn(name = "acceptedanswerid", referencedColumnName = "id")
     public PostsEntity getPostsByAcceptedanswerid() {
         return postsByAcceptedanswerid;
     }
@@ -266,7 +206,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "parent", referencedColumnName = "id")
+    @JoinColumn(name = "parentid", referencedColumnName = "id")
     public PostsEntity getPostsByParentid() {
         return postsByParentid;
     }
@@ -285,7 +225,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "owneruser", referencedColumnName = "id")
+    @JoinColumn(name = "owneruserid", referencedColumnName = "id")
     public UsersEntity getUsersByOwneruserid() {
         return usersByOwneruserid;
     }
@@ -295,7 +235,7 @@ public class PostsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "lasteditoruser", referencedColumnName = "id")
+    @JoinColumn(name = "lasteditoruserid", referencedColumnName = "id")
     public UsersEntity getUsersByLasteditoruserid() {
         return usersByLasteditoruserid;
     }

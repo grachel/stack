@@ -1,6 +1,7 @@
 package com.stack.model.dao;
 
 import com.stack.model.entities.*;
+import org.hibernate.Query;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -21,6 +22,13 @@ public class User extends Common {
 
     public static User findById(String s) {
         return new User(getSession().get(UsersEntity.class, s));
+    }
+
+    public static User findByLogin(String s) {
+        Query query = getSession().createQuery("from UsersEntity where login=:login");
+        query.setParameter("login", s);
+        UsersEntity user = (UsersEntity) query.uniqueResult();
+        return new User(user);
     }
 
     public void save() {
@@ -66,6 +74,23 @@ public class User extends Common {
 
     public void setDisplayName(String displayname) {
         entity.setDisplayname(displayname);
+    }
+
+    public String getLogin() {
+        return entity.getLogin();
+    }
+
+    public void setLogin(String login) {
+        entity.setLogin(login);
+    }
+
+
+    public String getPassword() {
+        return entity.getPassword();
+    }
+
+    public void setPassword(String password) {
+        entity.setPassword(password);
     }
 
     public Timestamp getLastAccessDate() {

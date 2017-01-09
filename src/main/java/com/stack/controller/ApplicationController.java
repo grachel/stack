@@ -1,9 +1,11 @@
 package com.stack.controller;
 
+import com.stack.model.dao.User;
 import com.stack.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,13 +43,7 @@ public class ApplicationController {
     public ModelAndView home() {
 
         ModelAndView model = new ModelAndView();
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            model.setViewName("home");
-        }
-        else {
-            model.setViewName("login");
-        }
+        model.setViewName("home");
 
         return model;
     }

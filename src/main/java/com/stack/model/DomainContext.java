@@ -1,5 +1,7 @@
 package com.stack.model;
 
+import com.stack.model.entities.Entities;
+import com.stack.model.entities.UsersEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -33,6 +35,11 @@ public class DomainContext {
 
     private static SessionFactory getSessionFactory() {
         Configuration configuration = new Configuration().configure();
+
+        for(Entities entity : Entities.values()){
+            configuration.addAnnotatedClass(entity.value);
+        }
+
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties());
         return configuration.buildSessionFactory(builder.build());

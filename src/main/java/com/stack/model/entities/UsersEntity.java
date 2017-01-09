@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 
+/**
+ * Created by grzesiek on 2017-01-09.
+ */
 @Entity
 @Table(name = "users", schema = "public", catalog = "de23md1m4q7ru7")
 public class UsersEntity {
@@ -11,6 +14,8 @@ public class UsersEntity {
     private Integer reputation;
     private Timestamp creationdate;
     private String displayname;
+    private String login;
+    private String password;
     private Timestamp lastaccessdate;
     private String websiteurl;
     private String aboutme;
@@ -24,7 +29,7 @@ public class UsersEntity {
     private Collection<VotesEntity> votesById;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -34,7 +39,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "reputation", nullable = true)
+    @Column(name = "reputation")
     public Integer getReputation() {
         return reputation;
     }
@@ -44,7 +49,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "creationdate", nullable = true)
+    @Column(name = "creationdate")
     public Timestamp getCreationdate() {
         return creationdate;
     }
@@ -54,7 +59,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "displayname", nullable = false, length = -1)
+    @Column(name = "displayname")
     public String getDisplayname() {
         return displayname;
     }
@@ -64,7 +69,27 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "lastaccessdate", nullable = true)
+    @Column(name = "login")
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    @Basic
+    @Column(name = "password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Basic
+    @Column(name = "lastaccessdate")
     public Timestamp getLastaccessdate() {
         return lastaccessdate;
     }
@@ -74,7 +99,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "websiteurl", nullable = true, length = -1)
+    @Column(name = "websiteurl")
     public String getWebsiteurl() {
         return websiteurl;
     }
@@ -84,7 +109,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "aboutme", nullable = true, length = -1)
+    @Column(name = "aboutme")
     public String getAboutme() {
         return aboutme;
     }
@@ -94,7 +119,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "upvotes", nullable = true)
+    @Column(name = "upvotes")
     public Integer getUpvotes() {
         return upvotes;
     }
@@ -104,7 +129,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "downvotes", nullable = true)
+    @Column(name = "downvotes")
     public Integer getDownvotes() {
         return downvotes;
     }
@@ -114,7 +139,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "email", nullable = false, length = -1)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -134,6 +159,8 @@ public class UsersEntity {
         if (reputation != null ? !reputation.equals(that.reputation) : that.reputation != null) return false;
         if (creationdate != null ? !creationdate.equals(that.creationdate) : that.creationdate != null) return false;
         if (displayname != null ? !displayname.equals(that.displayname) : that.displayname != null) return false;
+        if (login != null ? !login.equals(that.login) : that.login != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (lastaccessdate != null ? !lastaccessdate.equals(that.lastaccessdate) : that.lastaccessdate != null)
             return false;
         if (websiteurl != null ? !websiteurl.equals(that.websiteurl) : that.websiteurl != null) return false;
@@ -151,6 +178,8 @@ public class UsersEntity {
         result = 31 * result + (reputation != null ? reputation.hashCode() : 0);
         result = 31 * result + (creationdate != null ? creationdate.hashCode() : 0);
         result = 31 * result + (displayname != null ? displayname.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (lastaccessdate != null ? lastaccessdate.hashCode() : 0);
         result = 31 * result + (websiteurl != null ? websiteurl.hashCode() : 0);
         result = 31 * result + (aboutme != null ? aboutme.hashCode() : 0);

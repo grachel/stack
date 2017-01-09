@@ -2,32 +2,24 @@ package com.stack.model.entities;
 
 import javax.persistence.*;
 
+/**
+ * Created by grzesiek on 2017-01-09.
+ */
 @Entity
 @Table(name = "posttags", schema = "public", catalog = "de23md1m4q7ru7")
 public class PosttagsEntity {
-    private Integer postid;
-    private Integer tagid;
+    private String id;
     private PostsEntity postsByPostid;
     private TagsEntity tagsByTagid;
 
-    @Basic
-    @Column(name = "postid", nullable = true)
-    public Integer getPostid() {
-        return postid;
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
     }
 
-    public void setPostid(Integer postid) {
-        this.postid = postid;
-    }
-
-    @Basic
-    @Column(name = "tagid", nullable = true)
-    public Integer getTagid() {
-        return tagid;
-    }
-
-    public void setTagid(Integer tagid) {
-        this.tagid = tagid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
@@ -37,21 +29,19 @@ public class PosttagsEntity {
 
         PosttagsEntity that = (PosttagsEntity) o;
 
-        if (postid != null ? !postid.equals(that.postid) : that.postid != null) return false;
-        if (tagid != null ? !tagid.equals(that.tagid) : that.tagid != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = postid != null ? postid.hashCode() : 0;
-        result = 31 * result + (tagid != null ? tagid.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "post", referencedColumnName = "id")
+    @JoinColumn(name = "postid", referencedColumnName = "id")
     public PostsEntity getPostsByPostid() {
         return postsByPostid;
     }
@@ -61,23 +51,12 @@ public class PosttagsEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "tag", referencedColumnName = "id")
+    @JoinColumn(name = "tagid", referencedColumnName = "id")
     public TagsEntity getTagsByTagid() {
         return tagsByTagid;
     }
 
     public void setTagsByTagid(TagsEntity tagsByTagid) {
         this.tagsByTagid = tagsByTagid;
-    }
-
-    private String id;
-
-    @Id
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 }
