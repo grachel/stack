@@ -1,6 +1,8 @@
 package com.stack.service;
 
+import com.stack.model.DomainContext;
 import com.stack.model.dao.User;
+import org.hibernate.Session;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +20,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserRepositoryUserDetails(User.findByLogin(username));
+        Session session = null;
+        try {
+            session = DomainContext.openSession();
+            return new UserRepositoryUserDetails(User.findByLogin(username, session));
+        }
+        finally {
+            DomainContext.closeSession(session);
+        }
     }
 
     private final static class UserRepositoryUserDetails implements UserDetails {

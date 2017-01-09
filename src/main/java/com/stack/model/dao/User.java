@@ -2,6 +2,7 @@ package com.stack.model.dao;
 
 import com.stack.model.entities.*;
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -12,39 +13,41 @@ public class User extends Common {
 
     private UsersEntity entity;
 
-    public User(){
+    public User(Session session){
         this.entity = new UsersEntity();
+        this.session = session;
     }
 
-    private User(UsersEntity entity){
+    private User(UsersEntity entity, Session session){
         this.entity = entity;
+        this.session = session;
     }
 
-    public static User findById(String s) {
-        return new User(getSession().get(UsersEntity.class, s));
+    public static User findById(String s, Session session) {
+        return new User(session.get(UsersEntity.class, s), session);
     }
 
-    public static User findByLogin(String s) {
-        Query query = getSession().createQuery("from UsersEntity where login=:login");
+    public static User findByLogin(String s, Session session) {
+        Query query = session.createQuery("from UsersEntity where login=:login");
         query.setParameter("login", s);
         UsersEntity user = (UsersEntity) query.uniqueResult();
-        return new User(user);
+        return new User(user, session);
     }
 
     public void save() {
-        getSession().saveOrUpdate(entity);
+        session.persist(entity);
     }
 
     public void delete() {
-       getSession().delete(entity);
+        session.delete(entity);
     }
 
     @SuppressWarnings("unchecked")
-    public static List<User> findAll() {
+    public static List<User> findAll(Session session) {
         List<User> result = new ArrayList<>();
-        List<UsersEntity> entities = (List<UsersEntity>) getSession().createQuery("from UsersEntity").list();
+        List<UsersEntity> entities = (List<UsersEntity>) session.createQuery("from UsersEntity").list();
         for(UsersEntity entity : entities){
-            result.add(new User(entity));
+            result.add(new User(entity, session));
         }
         return result;
     }

@@ -1,7 +1,6 @@
 package com.stack.model;
 
 import com.stack.model.entities.Entities;
-import com.stack.model.entities.UsersEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -9,51 +8,35 @@ import org.hibernate.cfg.Configuration;
 
 public class DomainContext {
 
-    private Session currentSession;
-    private static DomainContext ourInstance = null;
+    private static SessionFactory sessionFactory = null;
 
-    public static DomainContext getInstance() {
-        if(ourInstance == null){
-            ourInstance = new DomainContext();
-        }
-        return ourInstance;
-    }
-
-    private DomainContext() {
-        currentSession = openCurrentSession();
-    }
-
-    private Session openCurrentSession() {
-        currentSession = getSessionFactory().openSession();
-        return currentSession;
-    }
-
-    private void closeCurrentSession() {
-        currentSession.close();
-        currentSession = null;
+    public static Session openSession() {
+        return getSessionFactory().openSession();
     }
 
     private static SessionFactory getSessionFactory() {
-        Configuration configuration = new Configuration().configure();
+        if(sessionFactory == null) {
+            try {
+                Configuration configuration = new Configuration().configure();
 
-        for(Entities entity : Entities.values()){
-            configuration.addAnnotatedClass(entity.value);
+                for (Entities entity : Entities.values()) {
+                    configuration.addAnnotatedClass(entity.value);
+                }
+
+                StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+                        .applySettings(configuration.getProperties());
+                sessionFactory = configuration.buildSessionFactory(builder.build());
+            } catch (Throwable ex) {
+                System.err.println("Initial SessionFactory creation failed." + ex);
+                throw new ExceptionInInitializerError(ex);
+            }
         }
-
-        StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
-                .applySettings(configuration.getProperties());
-        return configuration.buildSessionFactory(builder.build());
+        return sessionFactory;
     }
 
-    public Session getSession() {
-        return currentSession;
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        if (currentSession != null) {
-            closeCurrentSession();
+    public static void closeSession(Session session) {
+        if(session != null){
+            session.close();
         }
-        super.finalize();
     }
 }

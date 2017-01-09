@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,14 +48,4 @@ public class ApplicationController {
 
         return model;
     }
-
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public ModelAndView main() {
-
-        ModelAndView model = new ModelAndView();
-        model.setViewName("main");
-
-        return model;
-    }
-
 }
