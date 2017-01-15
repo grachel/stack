@@ -1,4 +1,4 @@
-package com.stack.auth;
+package com.stack.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

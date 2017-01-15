@@ -41,7 +41,7 @@ public class ApplicationController {
     public ModelAndView home() {
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("home");
+        model.setViewName("home/home");
 
         return model;
     }

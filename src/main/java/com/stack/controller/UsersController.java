@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UsersController {
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
                               @RequestParam(value = "logout", required = false) String logout) {
 
@@ -26,22 +26,22 @@ public class UsersController {
         if (logout != null) {
             model.addObject("msg", "You've been logged out successfully.");
         }
-        model.setViewName("login");
+        model.setViewName("user/login");
 
         return model;
 
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @RequestMapping(value = "registration", method = RequestMethod.GET)
     public ModelAndView registration() {
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("registration");
+        model.setViewName("user/registration");
 
         return model;
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @RequestMapping(value = "registration", method = RequestMethod.POST)
     public ModelAndView registration(@RequestParam(value = "login") String login,
                                      @RequestParam(value = "displayname") String displayname,
                                      @RequestParam(value = "password") String password,
