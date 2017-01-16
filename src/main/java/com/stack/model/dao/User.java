@@ -1,5 +1,6 @@
 package com.stack.model.dao;
 
+import com.stack.model.DomainContext;
 import com.stack.model.entities.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,14 +12,19 @@ import java.util.List;
 
 public class User extends Common {
 
-    private UsersEntity entity;
+    UsersEntity entity;
+
+    public User(){
+        this.entity = new UsersEntity();
+        this.session = DomainContext.openSession();
+    }
 
     public User(Session session){
         this.entity = new UsersEntity();
         this.session = session;
     }
 
-    private User(UsersEntity entity, Session session){
+    User(UsersEntity entity, Session session){
         this.entity = entity;
         this.session = session;
     }
@@ -35,7 +41,13 @@ public class User extends Common {
     }
 
     public void save() {
-        session.persist(entity);
+        try{
+            session.persist(entity);
+            session.flush();
+        }
+        finally {
+            DomainContext.closeSession(session);
+        }
     }
 
     public void delete() {

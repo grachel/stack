@@ -62,20 +62,12 @@ public class UsersController {
                                      @RequestParam(value = "password") String password,
                                      @RequestParam(value = "email") String email) {
 
-        Session session = null;
-        try {
-            session = DomainContext.openSession();
-            User user = new User(session);
-            user.setPassword(new BCryptPasswordEncoder().encode(password));
-            user.setLogin(login);
-            user.setDisplayName(displayname);
-            user.setEmail(email);
-            user.save();
-            session.flush();
-        }
-        finally {
-            DomainContext.closeSession(session);
-        }
+        User user = new User();
+        user.setPassword(new BCryptPasswordEncoder().encode(password));
+        user.setLogin(login);
+        user.setDisplayName(displayname);
+        user.setEmail(email);
+        user.save();
 
         return new ModelAndView("redirect:/");
     }

@@ -26,6 +26,7 @@ public class UsersEntity {
     private Collection<VotesEntity> votesById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
