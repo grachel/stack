@@ -12,6 +12,7 @@ public class PostlinksEntity {
     private PostsEntity postsByRelatedpostid;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;

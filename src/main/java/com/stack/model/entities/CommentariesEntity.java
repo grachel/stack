@@ -14,6 +14,7 @@ public class CommentariesEntity {
     private UsersEntity usersByUserid;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;

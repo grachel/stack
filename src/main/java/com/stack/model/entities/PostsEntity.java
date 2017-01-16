@@ -1,6 +1,7 @@
 package com.stack.model.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -30,6 +31,7 @@ public class PostsEntity {
     private Collection<VotesEntity> votesById;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -41,6 +43,7 @@ public class PostsEntity {
 
     @Basic
     @Column(name = "posttype")
+    @NotNull
     public String getPosttype() {
         return posttype;
     }

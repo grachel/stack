@@ -10,6 +10,7 @@ public class PosttagsEntity {
     private TagsEntity tagsByTagid;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public String getId() {
         return id;
