@@ -205,7 +205,7 @@ public class UsersEntity {
         this.commentariesById = commentariesById;
     }
 
-    @OneToMany(mappedBy = "usersByOwneruserid")
+    @OneToMany(mappedBy = "usersByOwneruserid", cascade = {CascadeType.ALL})
     public Collection<PostsEntity> getPostsesById() {
         return postsesById;
     }

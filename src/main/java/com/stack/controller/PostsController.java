@@ -1,6 +1,7 @@
 package com.stack.controller;
 
 import com.stack.model.dao.Post;
+import com.stack.model.dao.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,12 +25,25 @@ public class PostsController {
     public ModelAndView registration(@RequestParam(value = "title") String title,
                                      @RequestParam(value = "body") String body) {
 
-        Post post = new Post();
+        Post post = new Post(User.getCurrentUser());
         post.setTitle(title);
         post.setBody(body);
         post.setType("Q");
         post.save();
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/me");
+    }
+
+    @RequestMapping(value = "me", method = RequestMethod.GET)
+    public ModelAndView me() {
+        User currentUser = User.getCurrentUser();
+
+        ModelAndView model = new ModelAndView();
+        model.addObject("posts", currentUser.getPosts());
+        model.setViewName("post/me");
+
+        currentUser.close();
+        return model;
+
     }
 }

@@ -1,6 +1,9 @@
 package com.stack.controller;
 
+import com.stack.model.DomainContext;
+import com.stack.model.dao.Post;
 import com.stack.service.ApplicationService;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,9 +43,15 @@ public class ApplicationController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView home() {
 
+        Session session = null;
         ModelAndView model = new ModelAndView();
+        try {
+            model.addObject("posts", Post.findAll(DomainContext.openSession()));
+        }
+        finally {
+            DomainContext.closeSession(session);
+        }
         model.setViewName("home/home");
-
         return model;
     }
 }

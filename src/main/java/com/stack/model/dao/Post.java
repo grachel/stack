@@ -3,6 +3,8 @@ package com.stack.model.dao;
 import com.stack.model.DomainContext;
 import com.stack.model.entities.*;
 import org.hibernate.Session;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,6 +26,12 @@ public class Post extends Common {
     Post(PostsEntity entity, Session session){
         this.entity = entity;
         this.session = session;
+    }
+
+    public Post(User current) {
+        this.entity = new PostsEntity();
+        session = current.session;
+        setOwner(current);
     }
 
     public static Post findById(String s, Session session) {

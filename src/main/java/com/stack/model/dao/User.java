@@ -4,6 +4,8 @@ import com.stack.model.DomainContext;
 import com.stack.model.entities.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,15 +31,21 @@ public class User extends Common {
         this.session = session;
     }
 
-    public static User findById(String s, Session session) {
-        return new User(session.get(UsersEntity.class, s), session);
+    public void findById(String s) {
+        entity = session.get(UsersEntity.class, s);
     }
 
-    public static User findByLogin(String s, Session session) {
+    public static User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = new User();
+        currentUser.findByLogin(auth.getName());
+        return currentUser;
+    }
+
+    public void findByLogin(String s) {
         Query query = session.createQuery("from UsersEntity where login=:login");
         query.setParameter("login", s);
-        UsersEntity user = (UsersEntity) query.uniqueResult();
-        return new User(user, session);
+        entity = (UsersEntity) query.uniqueResult();
     }
 
     public void save() {
@@ -48,6 +56,10 @@ public class User extends Common {
         finally {
             DomainContext.closeSession(session);
         }
+    }
+
+    public void close(){
+        DomainContext.closeSession(session);
     }
 
     public void delete() {
@@ -164,8 +176,12 @@ public class User extends Common {
         return entity.getCommentariesById();
     }
 
-    public Collection<PostsEntity> getPosts() {
-        return entity.getPostsesById();
+    public Collection<Post> getPosts() {
+        List<Post> result = new ArrayList<>();
+        for (PostsEntity postsEntity : entity.getPostsesById()) {
+            result.add(new Post(postsEntity, session));
+         }
+        return result;
     }
 
     public Collection<PostsEntity> getEditedPosts() {

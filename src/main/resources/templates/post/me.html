@@ -2,21 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Stack Application</title>
+    <title>Stack Application - My questions</title>
 </head>
 <body>
 <div layout:fragment="content" class="content">
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
-            <th>User</th>
             <th>Title</th>
             <th>Body</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="post : ${posts}">
-            <td th:text="${post.getOwner().getDisplayName()}"></td>
             <td th:text="${post.getTitle()}"></td>
             <td th:text="${post.getBody()}"></td>
         </tr>

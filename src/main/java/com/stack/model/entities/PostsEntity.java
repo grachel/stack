@@ -222,7 +222,7 @@ public class PostsEntity {
         this.postsesById_0 = postsesById_0;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "owneruserid", referencedColumnName = "id")
     public UsersEntity getUsersByOwneruserid() {
         return usersByOwneruserid;

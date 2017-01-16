@@ -23,7 +23,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         Session session = null;
         try {
             session = DomainContext.openSession();
-            return new UserRepositoryUserDetails(User.findByLogin(username, session));
+            User user = new User();
+            user.findByLogin(username);
+            user.close();
+            return new UserRepositoryUserDetails(user);
         }
         finally {
             DomainContext.closeSession(session);
