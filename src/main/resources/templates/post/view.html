@@ -2,23 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Stack Application</title>
+    <title>Stack Application -[[${post.getTitle()}]]</title>
 </head>
 <body>
 <div layout:fragment="content" class="content">
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
-            <th></th>
-            <th>Questions</th>
+            <th th:text="${post.getTitle()}"></th>
+            <th th:text="${post.getBody()}"></th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="post : ${posts}">
-            <td th:text="${post.getScore()}"></td>
-            <td><a th:href="@{/posts/view(id=${post.getId()})}">[[${post.getTitle()}]]</a></td>
-        </tr>
-        </tbody>
     </table>
 </div>
 </body>

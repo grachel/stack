@@ -58,10 +58,6 @@ public class User extends Common {
         }
     }
 
-    public void close(){
-        DomainContext.closeSession(session);
-    }
-
     public void delete() {
         session.delete(entity);
     }

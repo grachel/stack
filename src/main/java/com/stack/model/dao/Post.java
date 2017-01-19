@@ -19,6 +19,11 @@ public class Post extends Common {
         this.entity = new PostsEntity();
     }
 
+    public Post(String id){
+        session = DomainContext.openSession();
+        findById(id);
+    }
+
     public Post(Session session){
         this.session = session;
     }
@@ -34,8 +39,8 @@ public class Post extends Common {
         setOwner(current);
     }
 
-    public static Post findById(String s, Session session) {
-        return new Post(session.get(PostsEntity.class, s), session);
+    public void findById(String s) {
+        entity = session.get(PostsEntity.class, s);
     }
 
     public void save() {
