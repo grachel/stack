@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Stack Application -[[${post.getTitle()}]]</title>
+    <title>Stack Application - [[${post.getTitle()}]]</title>
 </head>
 <body>
 <div layout:fragment="content" class="content">
     <table class="table table-bordered table-hover table-striped">
-        <thead>
+        <tbody>
         <tr>
-            <th th:text="${post.getTitle()}"></th>
-            <th th:text="${post.getBody()}"></th>
+            <td>[[${post.getTitle()}]]</td>
+            <td>[[${post.getBody()}]]</td>
         </tr>
-        </thead>
+        </tbody>
     </table>
 </div>
 </body>
