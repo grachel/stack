@@ -40,7 +40,7 @@ public class Post extends Common {
     }
 
     public void findById(String s) {
-        entity = session.get(PostsEntity.class, s);
+        entity = session.get(PostsEntity.class, Integer.parseInt(s));
     }
 
     public void save() {
