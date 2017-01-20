@@ -34,7 +34,7 @@
             $("button").click(function(){
                 $.post("comment",
                 {
-                  postid: /*[[${post.geId()}]]*/,
+                  postid: /*[[${post.getId()}]]*/,
                   body: $("#textareaID").val()
                 },
                 function(comment){
