@@ -14,7 +14,7 @@
 
     <div class="comments">
         <ul th:each="comment : ${post.getCommentaries()}">
-            <li>[[${comment.getScore()}]]</li>
+            <li id="${comment.getId()}" class="score">[[${comment.getScore()}]]</li>
             <li>[[${comment.getBody()}]]</li>
             <li>[[${comment.getCreationdate()}]]</li>
             <li>[[${comment.getUsersByUserid().getDisplayname()}]]</li>
@@ -46,6 +46,18 @@
                         <li>" + comment.getUsersByUserid().getDisplayname() + "</li>
                     </ul>" );
                 });
+            });
+        });
+
+        $(document).ready(function(){
+            $( ".score" ).click(function(event) {
+                 $.post("score",
+                    {
+                      id: event.target.id
+                    },
+                    function(score){
+                        $(".score").val(score);
+                    });
             });
         });
     </script>

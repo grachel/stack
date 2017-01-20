@@ -10,6 +10,7 @@ public class VotesEntity {
     private Timestamp creationdate;
     private PostsEntity postsByPostid;
     private UsersEntity usersByUserid;
+    private CommentariesEntity commentsByPostid;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,5 +68,15 @@ public class VotesEntity {
 
     public void setUsersByUserid(UsersEntity usersByUserid) {
         this.usersByUserid = usersByUserid;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "commentid", referencedColumnName = "id")
+    public CommentariesEntity getCommentsByCommentid() {
+        return commentsByPostid;
+    }
+
+    public void setCommentsByCommentid(CommentariesEntity postsByPostid) {
+        this.commentsByPostid = postsByPostid;
     }
 }
