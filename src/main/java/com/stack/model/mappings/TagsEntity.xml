@@ -11,7 +11,7 @@
             <basic name="tag">
                 <column name="tag" nullable="false"/>
             </basic>
-            <one-to-many name="posttagsesById" mapped-by="tagsByTagid" target-entity="com.stack.model.entities.PosttagsEntity"/>
+            <one-to-many fetch="EAGER" name="posttagsesById" mapped-by="tagsByTagid" target-entity="com.stack.model.entities.PosttagsEntity"/>
         </attributes>
     </entity>
 </entity-mappings>

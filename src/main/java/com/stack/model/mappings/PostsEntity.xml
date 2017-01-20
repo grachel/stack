@@ -47,27 +47,27 @@
             <basic name="closedreason">
                 <column name="closedreason" nullable="false"/>
             </basic>
-            <many-to-one name="postsByAcceptedanswerid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+            <many-to-one fetch="EAGER" name="postsByAcceptedanswerid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
                 <join-column name="acceptedanswerid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-one name="postsByParentid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+            <many-to-one fetch="EAGER" name="postsByParentid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
                 <join-column name="parentid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-one name="usersByOwneruserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+            <many-to-one fetch="EAGER" name="usersByOwneruserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
                 <join-column name="owneruserid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-one name="usersByLasteditoruserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+            <many-to-one fetch="EAGER" name="usersByLasteditoruserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
                 <join-column name="lasteditoruserid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
-            <one-to-many name="commentariesById" mapped-by="postsByPostid"
+            <one-to-many fetch="EAGER" name="commentariesById" mapped-by="postsByPostid"
                          target-entity="com.stack.model.entities.CommentariesEntity"/>
-            <one-to-many name="postlinksesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.PostlinksEntity"/>
-            <one-to-many name="postlinksesById_0" mapped-by="postsByRelatedpostid"
+            <one-to-many fetch="EAGER" name="postlinksesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.PostlinksEntity"/>
+            <one-to-many fetch="EAGER" name="postlinksesById_0" mapped-by="postsByRelatedpostid"
                          target-entity="com.stack.model.entities.PostlinksEntity"/>
-            <one-to-many name="postsesById" mapped-by="postsByAcceptedanswerid" target-entity="com.stack.model.entities.PostsEntity"/>
-            <one-to-many name="postsesById_0" mapped-by="postsByParentid" target-entity="com.stack.model.entities.PostsEntity"/>
-            <one-to-many name="posttagsesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.PosttagsEntity"/>
-            <one-to-many name="votesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.VotesEntity"/>
+            <one-to-many fetch="EAGER" name="postsesById" mapped-by="postsByAcceptedanswerid" target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many fetch="EAGER" name="postsesById_0" mapped-by="postsByParentid" target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many fetch="EAGER" name="posttagsesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.PosttagsEntity"/>
+            <one-to-many fetch="EAGER" name="votesById" mapped-by="postsByPostid" target-entity="com.stack.model.entities.VotesEntity"/>
         </attributes>
     </entity>
 </entity-mappings>

@@ -17,10 +17,10 @@
             <basic name="creationdate">
                 <column name="creationdate" nullable="false" precision="-1"/>
             </basic>
-            <many-to-one name="postsByPostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+            <many-to-one fetch="EAGER" name="postsByPostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
                 <join-column name="postid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-one name="postsByRelatedpostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+            <many-to-one fetch="EAGER" name="postsByRelatedpostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
                 <join-column name="relatedpostid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
         </attributes>

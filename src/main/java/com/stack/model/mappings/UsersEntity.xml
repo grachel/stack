@@ -41,13 +41,13 @@
             <basic name="email">
                 <column name="email"/>
             </basic>
-            <one-to-many name="badgesById" mapped-by="usersByUserid" target-entity="com.stack.model.entities.BadgesEntity"/>
-            <one-to-many name="commentariesById" mapped-by="usersByUserid"
+            <one-to-many fetch="EAGER" name="badgesById" mapped-by="usersByUserid" target-entity="com.stack.model.entities.BadgesEntity"/>
+            <one-to-many fetch="EAGER" name="commentariesById" mapped-by="usersByUserid"
                          target-entity="com.stack.model.entities.CommentariesEntity"/>
-            <one-to-many name="postsesById" mapped-by="usersByOwneruserid" target-entity="com.stack.model.entities.PostsEntity"/>
-            <one-to-many name="postsesById_0" mapped-by="usersByLasteditoruserid"
+            <one-to-many fetch="EAGER" name="postsesById" mapped-by="usersByOwneruserid" target-entity="com.stack.model.entities.PostsEntity"/>
+            <one-to-many fetch="EAGER" name="postsesById_0" mapped-by="usersByLasteditoruserid"
                          target-entity="com.stack.model.entities.PostsEntity"/>
-            <one-to-many name="votesById" mapped-by="usersByUserid" target-entity="com.stack.model.entities.VotesEntity"/>
+            <one-to-many fetch="EAGER" name="votesById" mapped-by="usersByUserid" target-entity="com.stack.model.entities.VotesEntity"/>
         </attributes>
     </entity>
 </entity-mappings>

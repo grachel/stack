@@ -23,10 +23,10 @@
             <basic name="userid">
                 <column name="userid" nullable="false" precision="-1"/>
             </basic>
-            <many-to-one name="postsByPostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
+            <many-to-one fetch="EAGER" name="postsByPostid" optional="true" target-entity="com.stack.model.entities.PostsEntity">
                 <join-column name="postid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
-            <many-to-one name="usersByUserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+            <many-to-one fetch="EAGER" name="usersByUserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
                 <join-column name="userid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
         </attributes>

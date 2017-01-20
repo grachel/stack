@@ -4,7 +4,7 @@
 
     <entity class="com.stack.model.entities.BadgesEntity">
         <table name="badges" schema="public" catalog="de23md1m4q7ru7"/>
-        <attributes>
+        <attributes >
             <id name="id">
                 <column name="id" precision="-1"/>
             </id>
@@ -17,7 +17,7 @@
             <basic name="creationdate">
                 <column name="creationdate" nullable="false" precision="-1"/>
             </basic>
-            <many-to-one name="usersByUserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
+            <many-to-one fetch="EAGER" name="usersByUserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
                 <join-column name="userid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
         </attributes>
