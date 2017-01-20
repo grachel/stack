@@ -6,14 +6,49 @@
 </head>
 <body>
 <div layout:fragment="content" class="content">
-    <table class="table table-bordered table-hover table-striped">
-        <tbody>
-        <tr>
-            <td>[[${post.getTitle()}]]</td>
-            <td>[[${post.getBody()}]]</td>
-        </tr>
-        </tbody>
-    </table>
+    <h2>[[${post.getTitle()}]]</h2>
+    <h5><span class="glyphicon glyphicon-time"></span>Posted by [[${post.getOwner().getgetDisplayName()}]], [[${post.getCreationDate()()}]].</h5>
+    <p>[[${post.getBody()}]]</p>
+    <hr>
+
+
+    <div class="comments">
+        <ul th:each="comment : ${post.getCommentaries}">
+            <li>[[${comment.getScore()}]]</li>
+            <li>[[${comment.getBody()}]]</li>
+            <li>[[${comment.getCreationdate()}]]</li>
+            <li>[[${comment.getUsersByUserid().getDisplayname()}]]</li>
+        </ul>
+    </div>
+    <h4>Leave a Comment:</h4>
+    <form role="form">
+        <div class="form-group">
+            <textarea id="textareaID" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    <br><br>
+
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                $.post("comment",
+                {
+                  postid: ${post.geId()},
+                  body: $("#textareaID").val()
+                },
+                function(comment){
+                    $( ".comments" ).append(
+                    "<ul>
+                        <li>" + comment.getScore() + "</li>
+                        <li>" + comment.getBody() + "</li>
+                        <li>" + comment.getCreationdate() + "</li>
+                        <li>" + comment.getUsersByUserid().getDisplayname() + "</li>
+                    </ul>" );
+                });
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Post extends Common {
@@ -153,5 +154,24 @@ public class Post extends Common {
 
     public void setOwner(User user) {
         this.entity.setUsersByOwneruserid(user.entity);
+    }
+
+    public Collection<CommentariesEntity> getCommentaries() {
+        return entity.getCommentariesById();
+    }
+
+    public CommentariesEntity addComment(String body) {
+        Collection<CommentariesEntity> comments = entity.getCommentariesById();
+        if (comments == null){
+            comments = new ArrayList<>();
+        }
+        CommentariesEntity comment = new CommentariesEntity();
+        comment.setBody(body);
+        comment.setCreationdate(new Timestamp(System.currentTimeMillis()));
+        comment.setPostsByPostid(entity);
+        comment.setUsersByUserid(User.getCurrentUser().entity);
+        comments.add(comment);
+
+        return comment;
     }
 }

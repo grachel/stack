@@ -48,15 +48,17 @@ public class PostsController {
     }
     
     @RequestMapping(value = "posts/view", method = RequestMethod.GET)
-    public ModelAndView me(@RequestParam(value = "id") String id) {
+    public ModelAndView view(@RequestParam(value = "id") String id) {
         User currentUser = User.getCurrentUser();
 
         ModelAndView model = new ModelAndView();
         Post post = new Post(id);
         
         model.addObject("post", post);
+        model.addObject("currUser", currentUser);
         model.setViewName("post/view");
 
+        currentUser.close();
         post.close();
         return model;
 
