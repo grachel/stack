@@ -13,7 +13,7 @@
 
 
     <div class="comments">
-        <ul th:each="comment : ${post.getCommentaries}">
+        <ul th:each="comment : ${post.getCommentaries()}">
             <li>[[${comment.getScore()}]]</li>
             <li>[[${comment.getBody()}]]</li>
             <li>[[${comment.getCreationdate()}]]</li>
