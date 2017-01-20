@@ -157,7 +157,7 @@ public class PostsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "postsByPostid")
+    @OneToMany(mappedBy = "postsByPostid", fetch = FetchType.EAGER)
     public Collection<CommentariesEntity> getCommentariesById() {
         return commentariesById;
     }
