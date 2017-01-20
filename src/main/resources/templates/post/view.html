@@ -7,7 +7,7 @@
 <body>
 <div layout:fragment="content" class="content">
     <h2>[[${post.getTitle()}]]</h2>
-    <h5><span class="glyphicon glyphicon-time"></span>Posted by [[${post.getOwner().getgetDisplayName()}]], [[${post.getCreationDate()()}]].</h5>
+    <h5><span class="glyphicon glyphicon-time"></span>Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()()}]].</h5>
     <p>[[${post.getBody()}]]</p>
     <hr>
 
