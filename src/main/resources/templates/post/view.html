@@ -6,73 +6,32 @@
 </head>
 <body>
 <div layout:fragment="content" class="content">
-    <h2>[[${post.getTitle()}]]</h2>
-    <h5><span class="glyphicon glyphicon-time"></span>Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()}]].</h5>
-    <p>[[${post.getBody()}]]</p>
+    <span class="title">[[${post.getTitle()}]], </span><span class="datetime">Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()}]].</span>
+
+    <textarea class="post" readonly>[[${post.getBody()}]]</textarea>
+
     <hr>
-
-
     <div class="comments">
-        <ul th:each="comment : ${post.getCommentaries()}">
-            <li id="${comment.getId()}" class="score">[[${comment.getScore()}]]</li>
-            <li>[[${comment.getBody()}]]</li>
-            <li>[[${comment.getCreationDate()}]]</li>
-            <li>[[${comment.getUsername()}]]</li>
-        </ul>
-    </div>
-    <h4>Leave a Comment:</h4>
-    <form role="form">
-        <div class="form-group">
-            <textarea id="textareaID" class="form-control" rows="3" required></textarea>
+        <div th:id="'pos' + ${post.getId()}">
+            <table>
+                <tbody class="tcomm">
+                <tr th:each="comment : ${post.getCommentaries()}">
+                    <td>
+                        <a th:id="'com' + ${comment.getId()}" class="voteup glyphicon glyphicon-chevron-up">[[${comment.getScore()}]]</a>
+                    </td>
+                    <td th:text="${comment.getBody() + ' - ' + comment.getUsername() + ', on ' + comment.getCreationDate()}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>Leave a Comment:</h4>
+            <form role="form">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="button" class="commBtn btn btn-success">Submit</button>
+            </form>
         </div>
-        <button type="submit" class="btn btn-success">Submit</button>
-    </form>
-    <br><br>
-
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-
-        $(document).ready(function(){
-            console.log("xxxx")
-            $("button").click(function(){
-                console.log(1 + $("#textareaID").val())
-                $.ajax({
-                    type: "POST",
-                    url: "/comment",
-                    data: { postid: [[${post.getId()}]], body: $("#textareaID").val() },
-                    done :
-                        function(comment){
-                            $( ".comments" ).append(
-                                "<ul><li>"
-                                + comment.getScore()
-                                + "</li><li>"
-                                + comment.getBody()
-                                + "</li><li>"
-                                + comment.getCreationDate()
-                                + "</li><li>"
-                                + comment.getUsername()
-                                + "</li></ul>" );
-                        }
-                });
-            });
-        });
-
-        $(document).ready(function(){
-            $( ".score" ).click(function(event) {
-                $.ajax({
-                    type: "POST",
-                    url: "score",
-                    data: {xxx: event.target.id},
-                    success: function (score) {
-                        $(".score").val(score);
-                    }
-                });
-            });
-        });
-
-        /*]]>*/
-
-    </script>
+    </div>
 </div>
 </body>
 </html>

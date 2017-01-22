@@ -2,6 +2,7 @@ package com.stack.model.dao;
 
 import com.stack.model.DomainContext;
 import com.stack.model.entities.*;
+import org.hibernate.Interceptor;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.security.core.Authentication;
@@ -16,11 +17,6 @@ import java.util.List;
 public class Comment extends Common {
 
     CommentariesEntity entity;
-
-    public Comment() {
-        session = DomainContext.openSession();
-        this.entity = new CommentariesEntity();
-    }
 
     public Comment(Session session){
         this.entity = new CommentariesEntity();
@@ -59,7 +55,7 @@ public class Comment extends Common {
         List<?> votes = query.list();
         if (votes != null) {
             for (Object vote : votes) {
-                result.add(new Vote((VotesEntity) vote));
+                result.add(new Vote((VotesEntity) vote, session));
             }
         }
         return result;
@@ -80,5 +76,29 @@ public class Comment extends Common {
 
     public String getUsername(){
         return entity.getUsersByUserid().getDisplayname();
+    }
+
+    public int getId(){
+        return entity.getId();
+    }
+
+    public int getPostId(){
+        return entity.getPostsByPostid().getId();
+    }
+
+    public CommentariesEntity getEntity() {
+        return entity;
+    }
+
+    public boolean wasVotedByUser(User currUser) {
+        boolean result = false;
+        List<Vote> votes = getVotes();
+        for(Vote vote : votes){
+            if(vote.getUser().getId() ==  currUser.getId()){
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

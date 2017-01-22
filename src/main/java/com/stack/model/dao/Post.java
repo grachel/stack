@@ -168,17 +168,12 @@ public class Post extends Common {
     }
 
     public Comment addComment(String body) {
-        Collection<CommentariesEntity> comments = entity.getCommentariesById();
-        if (comments == null){
-            comments = new ArrayList<>();
-        }
-
         CommentariesEntity comment = new CommentariesEntity();
         comment.setBody(body);
         comment.setCreationdate(new Timestamp(System.currentTimeMillis()));
         comment.setPostsByPostid(entity);
         comment.setUsersByUserid(User.getCurrentUser(session).entity);
-        comments.add(comment);
+        entity.getCommentariesById().add(comment);
 
         return new Comment(comment);
     }

@@ -30,3 +30,45 @@ body {
     display: inline-block;
     vertical-align: middle;
 }
+
+div.comments {
+    width: 40%;
+    float: right;
+    margin-bottom: 40px;
+}
+
+span.title {
+    font-size: x-large;
+}
+
+span.datetime {
+    font-size: smaller;
+}
+
+table {
+    margin-right: 0px;
+    width: 100%;
+}
+
+td {
+    padding: 5px;
+}
+
+a.voteup {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+textarea.post {
+    margin-top: 1%;
+    resize: none;
+    width: 100%;
+    border: none;
+    background-color: #f5f5f5;
+    padding: 15px;
+}
+
+.commBtn {
+    float: right;
+}

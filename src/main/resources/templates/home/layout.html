@@ -13,6 +13,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/3.0.20/autosize.js"></script>
+    <script src="/js/core.js"></script>
 </head>
 <body>
 
@@ -29,12 +31,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li th:classappend="${page == 'home' ? 'active' : ''}"><a href="#" th:href="@{/}">Home</a></li>
-                <li th:classappend="${page == 'ask' ? 'active' : ''}"><a href="#" th:href="@{/ask}">Ask</a></li>
-                <li th:classappend="${page == 'ask' ? 'active' : ''}"><a href="#" th:href="@{/me}">My questions</a></li>
+                <li th:classappend="${page == 'ask' ? 'active' : ''}"><a href="#" th:href="@{/post/ask}">Ask</a></li>
+                <li th:classappend="${page == 'ask' ? 'active' : ''}"><a href="#" th:href="@{/post/my}">My questions</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li th:unless="${#httpServletRequest.remoteUser}"><a href="/login" th:href="@{/login}">Sign in</a></li>
-                <li th:if="${#httpServletRequest.remoteUser}">Hello [[${#httpServletRequest.remoteUser}]]!</li>
+                <li th:if="${#httpServletRequest.remoteUser}"><a>[[${#httpServletRequest.remoteUser}]]</a></li>
                 <li th:if="${#httpServletRequest.remoteUser}"><a href="/logout" th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>

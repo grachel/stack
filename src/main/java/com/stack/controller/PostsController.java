@@ -36,7 +36,7 @@ public class PostsController {
         post.setCreationDate(new Timestamp(System.currentTimeMillis()));
         post.save();
 
-        return new ModelAndView("redirect:/me");
+        return new ModelAndView("redirect:/post/my");
     }
 
     @RequestMapping(value = "my", method = RequestMethod.GET)

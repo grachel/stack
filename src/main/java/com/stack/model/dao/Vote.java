@@ -1,19 +1,19 @@
 package com.stack.model.dao;
 
-import com.stack.model.DomainContext;
-import com.stack.model.entities.*;
+import com.stack.model.entities.VotesEntity;
+import org.hibernate.Session;
 
 public class Vote extends Common {
 
     VotesEntity entity;
 
-    public Vote() {
-        session = DomainContext.openSession();
+    public Vote(Session session) {
+        this.session = session;
         this.entity = new VotesEntity();
     }
 
-    Vote(VotesEntity vote) {
-        session = DomainContext.openSession();
+    public Vote(VotesEntity vote, Session session) {
+        this.session = session;
         this.entity = vote;
     }
 
@@ -29,13 +29,7 @@ public class Vote extends Common {
         this.entity.setCommentsByPostid(comment.entity);
     }
 
-    public void save() {
-        try{
-            session.persist(entity);
-            session.flush();
-        }
-        finally {
-            DomainContext.closeSession(session);
-        }
+    public void persist() {
+        session.persist(entity);
     }
 }

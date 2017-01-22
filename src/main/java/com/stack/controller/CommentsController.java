@@ -1,59 +1,53 @@
 package com.stack.controller;
 
+import com.stack.json.Score;
 import com.stack.model.dao.Comment;
 import com.stack.model.dao.Post;
 import com.stack.model.dao.User;
 import com.stack.model.dao.Vote;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 public class CommentsController {
 
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public @ResponseBody
-    Comment add(@RequestParam(value = "postid") String postid,
+    com.stack.json.Comment add(@RequestParam(value = "postid") String postid,
                            @RequestParam(value = "body") String body) {
 
-        Post post = new Post(postid);
-        Comment comment = post.addComment(body);
-        post.save();
-
-        return comment;
+        if(!StringUtils.isEmpty(body)) {
+            Post post = new Post(postid);
+            Comment comment = post.addComment(body);
+            post.save();
+            return new com.stack.json.Comment(comment);
+        }
+        return null;
     }
 
-    @RequestMapping(value = "/score", method = RequestMethod.GET)
-    public Integer score(@RequestParam(value = "id") String id) {
-
+    @RequestMapping(value = "/score", method = RequestMethod.POST)
+    public @ResponseBody
+    Score score(@RequestParam(value = "id") String id) {
         User currUser =  User.getCurrentUser();
 
         Comment comment = new Comment(currUser.session);
         comment.findById(id);
 
         if(comment.getUser().getId() != currUser.getId()){
-            List<Vote> votes = comment.getVotes();
-            boolean update = true;
-            for(Vote vote : votes){
-                if(vote.getUser().getId() ==  currUser.getId()){
-                    update = false;
-                    break;
-                }
-            }
-
-            if(update){
+            if(!comment.wasVotedByUser(currUser)){
                 comment.incScore();
-                Vote vote = new Vote();
+                Vote vote = new Vote(currUser.session);
                 vote.setUser(currUser);
                 vote.setComment(comment);
+                vote.persist();
             }
         }
 
         comment.save();
-        return comment.getScore();
+        return new Score(comment.getId(), comment.getScore());
     }
 }
