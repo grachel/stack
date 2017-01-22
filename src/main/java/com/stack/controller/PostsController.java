@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Timestamp;
+
 @Controller
 @RequestMapping(value = "/post")
 public class PostsController {
@@ -31,6 +33,7 @@ public class PostsController {
         post.setTitle(title);
         post.setBody(body);
         post.setType("Q");
+        post.setCreationDate(new Timestamp(System.currentTimeMillis()));
         post.save();
 
         return new ModelAndView("redirect:/me");

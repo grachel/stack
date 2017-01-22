@@ -6,6 +6,7 @@ import com.stack.model.entities.PostsEntity;
 import org.hibernate.Session;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -78,8 +79,8 @@ public class Post extends Common {
         entity.setPosttype(posttype);
     }
 
-    public Timestamp getCreationDate() {
-        return entity.getCreationdate();
+    public String getCreationDate() {
+        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(entity.getCreationdate());
     }
 
     public void setCreationDate(Timestamp creationdate) {
@@ -155,11 +156,18 @@ public class Post extends Common {
         this.entity.setUsersByOwneruserid(user.entity);
     }
 
-    public Collection<CommentariesEntity> getCommentaries() {
-        return entity.getCommentariesById();
+    public Collection<Comment> getCommentaries() {
+        Collection<Comment> result = new ArrayList<>();
+
+        for(CommentariesEntity e : entity.getCommentariesById()){
+            result.add(new Comment(e));
+        }
+
+
+        return result;
     }
 
-    public CommentariesEntity addComment(String body) {
+    public Comment addComment(String body) {
         Collection<CommentariesEntity> comments = entity.getCommentariesById();
         if (comments == null){
             comments = new ArrayList<>();
@@ -172,6 +180,6 @@ public class Post extends Common {
         comment.setUsersByUserid(User.getCurrentUser(session).entity);
         comments.add(comment);
 
-        return comment;
+        return new Comment(comment);
     }
 }

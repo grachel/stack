@@ -4,7 +4,6 @@ import com.stack.model.dao.Comment;
 import com.stack.model.dao.Post;
 import com.stack.model.dao.User;
 import com.stack.model.dao.Vote;
-import com.stack.model.entities.CommentariesEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,11 +17,11 @@ public class CommentsController {
 
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public @ResponseBody
-    CommentariesEntity add(@RequestParam(value = "postid") String postid,
+    Comment add(@RequestParam(value = "postid") String postid,
                            @RequestParam(value = "body") String body) {
 
         Post post = new Post(postid);
-        CommentariesEntity comment = post.addComment(body);
+        Comment comment = post.addComment(body);
         post.save();
 
         return comment;

@@ -16,8 +16,8 @@
         <ul th:each="comment : ${post.getCommentaries()}">
             <li id="${comment.getId()}" class="score">[[${comment.getScore()}]]</li>
             <li>[[${comment.getBody()}]]</li>
-            <li>[[${comment.getCreationdate()}]]</li>
-            <li>[[${comment.getUsersByUserid().getDisplayname()}]]</li>
+            <li>[[${comment.getCreationDate()}]]</li>
+            <li>[[${comment.getUsername()}]]</li>
         </ul>
     </div>
     <h4>Leave a Comment:</h4>
@@ -48,9 +48,9 @@
                                 + "</li><li>"
                                 + comment.getBody()
                                 + "</li><li>"
-                                + comment.getCreationdate()
+                                + comment.getCreationDate()
                                 + "</li><li>"
-                                + comment.getUsersByUserid().getDisplayname()
+                                + comment.getUsername()
                                 + "</li></ul>" );
                         }
                 });

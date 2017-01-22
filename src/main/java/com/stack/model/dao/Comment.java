@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +25,10 @@ public class Comment extends Common {
     public Comment(Session session){
         this.entity = new CommentariesEntity();
         this.session = session;
+    }
+
+    public Comment(CommentariesEntity comment) {
+        this.entity = comment;
     }
 
     public void findById(String s) {
@@ -62,5 +67,18 @@ public class Comment extends Common {
 
     public void incScore() {
         entity.setScore(entity.getScore() + 1);
+    }
+
+    public String getCreationDate(){
+        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(entity.getCreationdate());
+    }
+
+    public String getBody(){
+        return entity.getBody();
+    }
+
+
+    public String getUsername(){
+        return entity.getUsersByUserid().getDisplayname();
     }
 }
