@@ -3,6 +3,8 @@ package com.stack.model.dao;
 import com.stack.model.DomainContext;
 import com.stack.model.entities.CommentariesEntity;
 import com.stack.model.entities.PostsEntity;
+import com.stack.model.entities.VotesEntity;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.sql.Timestamp;
@@ -61,7 +63,7 @@ public class Post extends Common {
     @SuppressWarnings("unchecked")
     public static List<Post> findAll(Session session) {
         List<Post> result = new ArrayList<>();
-        List<PostsEntity> entities = (List<PostsEntity>) session.createQuery("from PostsEntity").list();
+        List<PostsEntity> entities = (List<PostsEntity>) session.createQuery("from PostsEntity order by id desc").list();
         for(PostsEntity entity : entities){
             result.add(new Post(entity, session));
         }
@@ -167,6 +169,19 @@ public class Post extends Common {
         return result;
     }
 
+    public List<Vote> getVotes() {
+        List<Vote> result = new ArrayList<>();
+        Query query = session.createQuery("from VotesEntity where postid=:id");
+        query.setParameter("id", entity.getId());
+        List<?> votes = query.list();
+        if (votes != null) {
+            for (Object vote : votes) {
+                result.add(new Vote((VotesEntity) vote, session));
+            }
+        }
+        return result;
+    }
+
     public Comment addComment(String body) {
         CommentariesEntity comment = new CommentariesEntity();
         comment.setBody(body);
@@ -176,5 +191,21 @@ public class Post extends Common {
         entity.getCommentariesById().add(comment);
 
         return new Comment(comment);
+    }
+
+    public boolean wasVotedByUser(User currUser) {
+        boolean result = false;
+        List<Vote> votes = getVotes();
+        for(Vote vote : votes){
+            if(vote.getUser().getId() ==  currUser.getId()){
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    public void incScore() {
+        entity.setScore(entity.getScore() + 1);
     }
 }

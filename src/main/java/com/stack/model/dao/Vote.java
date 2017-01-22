@@ -32,4 +32,8 @@ public class Vote extends Common {
     public void persist() {
         session.persist(entity);
     }
+
+    public void setPost(Post post){
+        this.entity.setPostsByPostid(post.entity);
+    }
 }

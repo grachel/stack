@@ -1,12 +1,11 @@
 package com.stack.controller;
 
+import com.stack.json.Score;
 import com.stack.model.dao.Post;
 import com.stack.model.dao.User;
+import com.stack.model.dao.Vote;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
@@ -67,5 +66,27 @@ public class PostsController {
         post.close();
         return model;
 
+    }
+
+    @RequestMapping(value = "score", method = RequestMethod.POST)
+    public @ResponseBody
+    Score score(@RequestParam(value = "id") String id) {
+        User currUser =  User.getCurrentUser();
+
+        Post post = new Post(currUser.session);
+        post.findById(id);
+
+        if(post.getOwner().getId() != currUser.getId()){
+            if(!post.wasVotedByUser(currUser)){
+                post.incScore();
+                Vote vote = new Vote(currUser.session);
+                vote.setUser(currUser);
+                vote.setPost(post);
+                vote.persist();
+            }
+        }
+
+        post.save();
+        return new Score(post.getId(), post.getScore());
     }
 }

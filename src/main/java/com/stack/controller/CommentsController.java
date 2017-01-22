@@ -29,7 +29,7 @@ public class CommentsController {
         return null;
     }
 
-    @RequestMapping(value = "/score", method = RequestMethod.POST)
+    @RequestMapping(value = "/comment/score", method = RequestMethod.POST)
     public @ResponseBody
     Score score(@RequestParam(value = "id") String id) {
         User currUser =  User.getCurrentUser();

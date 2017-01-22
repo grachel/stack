@@ -206,6 +206,7 @@ public class UsersEntity {
     }
 
     @OneToMany(mappedBy = "usersByOwneruserid", cascade = {CascadeType.ALL})
+    @OrderBy("id desc")
     public Collection<PostsEntity> getPostsesById() {
         return postsesById;
     }

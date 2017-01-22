@@ -6,30 +6,32 @@
 </head>
 <body>
 <div layout:fragment="content" class="content">
-    <span class="title">[[${post.getTitle()}]], </span><span class="datetime">Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()}]].</span>
+    <div th:id="'pos' + ${post.getId()}">
+        <span class="title">[[${post.getTitle()}]], </span><span class="datetime">Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()}]].</span>
 
-    <textarea class="post" readonly>[[${post.getBody()}]]</textarea>
+        <div class="post">
+            <a class="vote postUp glyphicon glyphicon-chevron-up">[[${post.getScore()}]]</a>
+            <textarea class="post" readonly>[[${post.getBody()}]]</textarea>
+        </div>
 
-    <hr>
-    <div class="comments">
-        <div th:id="'pos' + ${post.getId()}">
-            <table>
-                <tbody class="tcomm">
-                <tr th:each="comment : ${post.getCommentaries()}">
-                    <td>
-                        <a th:id="'com' + ${comment.getId()}" class="voteup glyphicon glyphicon-chevron-up">[[${comment.getScore()}]]</a>
-                    </td>
-                    <td th:text="${comment.getBody() + ' - ' + comment.getUsername() + ', on ' + comment.getCreationDate()}"></td>
-                </tr>
-                </tbody>
-            </table>
-            <h4>Leave a Comment:</h4>
-            <form role="form">
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" required></textarea>
-                </div>
-                <button type="button" class="commBtn btn btn-success">Submit</button>
-            </form>
+        <div class="comments">
+                <table>
+                    <tbody class="tcomm">
+                    <tr th:each="comment : ${post.getCommentaries()}">
+                        <td>
+                            <a th:id="'com' + ${comment.getId()}" class="vote commUp glyphicon glyphicon-chevron-up">[[${comment.getScore()}]]</a>
+                        </td>
+                        <td th:text="${comment.getBody() + ' - ' + comment.getUsername() + ', on ' + comment.getCreationDate()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h4>Leave a Comment:</h4>
+                <form role="form">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" required></textarea>
+                    </div>
+                    <button type="button" class="commBtn btn btn-success">Submit</button>
+                </form>
         </div>
     </div>
 </div>
