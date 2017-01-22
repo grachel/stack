@@ -3,12 +3,14 @@ package com.stack.controller;
 import com.stack.model.dao.Post;
 import com.stack.model.dao.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping(value = "/post")
 public class PostsController {
 
     @RequestMapping(value = "ask", method = RequestMethod.GET)
@@ -34,7 +36,7 @@ public class PostsController {
         return new ModelAndView("redirect:/me");
     }
 
-    @RequestMapping(value = "me", method = RequestMethod.GET)
+    @RequestMapping(value = "my", method = RequestMethod.GET)
     public ModelAndView me() {
         User currentUser = User.getCurrentUser();
 
@@ -47,8 +49,8 @@ public class PostsController {
 
     }
     
-    @RequestMapping(value = "posts/view", method = RequestMethod.GET)
-    public ModelAndView view(@RequestParam(value = "id") String id) {
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public ModelAndView view(@PathVariable String id) {
         User currentUser = User.getCurrentUser();
 
         ModelAndView model = new ModelAndView();

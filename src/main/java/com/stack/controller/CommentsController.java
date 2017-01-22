@@ -9,15 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
 @Controller
 public class CommentsController {
 
-    @RequestMapping(value = "/comment", method = RequestMethod.GET)
-    public CommentariesEntity add(@RequestParam(value = "postid") String postid,
-                                  @RequestParam(value = "body") String body) {
+    @RequestMapping(value = "/comment", method = RequestMethod.POST)
+    public @ResponseBody
+    CommentariesEntity add(@RequestParam(value = "postid") String postid,
+                           @RequestParam(value = "body") String body) {
 
         Post post = new Post(postid);
         CommentariesEntity comment = post.addComment(body);

@@ -72,11 +72,11 @@ public class VotesEntity {
 
     @ManyToOne
     @JoinColumn(name = "commentid", referencedColumnName = "id")
-    public CommentariesEntity getCommentsByCommentid() {
+    public CommentariesEntity getCommentsByPostid() {
         return commentsByPostid;
     }
 
-    public void setCommentsByCommentid(CommentariesEntity postsByPostid) {
+    public void setCommentsByPostid(CommentariesEntity postsByPostid) {
         this.commentsByPostid = postsByPostid;
     }
 }

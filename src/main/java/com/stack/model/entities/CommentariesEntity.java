@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Table(name = "commentaries", schema = "public", catalog = "de23md1m4q7ru7")
 public class CommentariesEntity {
     private int id;
-    private Integer score;
+    private Integer score = 0;
     private String body;
     private Timestamp creationdate;
     private PostsEntity postsByPostid;
@@ -73,7 +73,7 @@ public class CommentariesEntity {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "postid", referencedColumnName = "id")
     public PostsEntity getPostsByPostid() {
         return postsByPostid;
@@ -83,7 +83,7 @@ public class CommentariesEntity {
         this.postsByPostid = postsByPostid;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userid", referencedColumnName = "id")
     public UsersEntity getUsersByUserid() {
         return usersByUserid;

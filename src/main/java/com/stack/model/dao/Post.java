@@ -1,10 +1,9 @@
 package com.stack.model.dao;
 
 import com.stack.model.DomainContext;
-import com.stack.model.entities.*;
+import com.stack.model.entities.CommentariesEntity;
+import com.stack.model.entities.PostsEntity;
 import org.hibernate.Session;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -165,11 +164,12 @@ public class Post extends Common {
         if (comments == null){
             comments = new ArrayList<>();
         }
+
         CommentariesEntity comment = new CommentariesEntity();
         comment.setBody(body);
         comment.setCreationdate(new Timestamp(System.currentTimeMillis()));
         comment.setPostsByPostid(entity);
-        comment.setUsersByUserid(User.getCurrentUser().entity);
+        comment.setUsersByUserid(User.getCurrentUser(session).entity);
         comments.add(comment);
 
         return comment;

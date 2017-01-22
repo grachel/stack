@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+      layout:decorator="home/layout">
 <head>
     <title>Stack Application</title>
 </head>
@@ -16,7 +16,7 @@
         <tbody>
         <tr th:each="post : ${posts}">
             <td th:text="${post.getScore()}"></td>
-            <td><a th:href="@{/posts/view(id=${post.getId()})}">[[${post.getTitle()}]]</a></td>
+            <td><a th:href="@{'/post/' + ${post.getId()}}">[[${post.getTitle()}]]</a></td>
         </tr>
         </tbody>
     </table>

@@ -11,7 +11,7 @@ public class PostsEntity {
     private int id;
     private String posttype;
     private Timestamp creationdate;
-    private Integer score;
+    private Integer score = 0;
     private String body;
     private Timestamp lasteditdate;
     private String title;
@@ -157,7 +157,7 @@ public class PostsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "postsByPostid", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "postsByPostid", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<CommentariesEntity> getCommentariesById() {
         return commentariesById;
     }

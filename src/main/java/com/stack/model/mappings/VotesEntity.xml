@@ -23,6 +23,9 @@
             <many-to-one fetch="EAGER" name="usersByUserid" optional="true" target-entity="com.stack.model.entities.UsersEntity">
                 <join-column name="userid" nullable="false" referenced-column-name="id"/>
             </many-to-one>
+            <many-to-one fetch="EAGER" name="commentsByPostid" optional="true" target-entity="com.stack.model.entities.CommentariesEntity">
+                <join-column name="commentid" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
         </attributes>
     </entity>
 </entity-mappings>

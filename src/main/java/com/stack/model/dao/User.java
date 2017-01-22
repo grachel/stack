@@ -35,6 +35,13 @@ public class User extends Common {
         entity = session.get(UsersEntity.class, s);
     }
 
+    public static User getCurrentUser(Session session){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = new User(session);
+        currentUser.findByLogin(auth.getName());
+        return currentUser;
+    }
+
     public static User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = new User();

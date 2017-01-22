@@ -26,7 +26,7 @@ public class Vote extends Common {
     }
 
     public void setComment(Comment comment){
-        this.entity.setCommentsByCommentid(comment.entity);
+        this.entity.setCommentsByPostid(comment.entity);
     }
 
     public void save() {

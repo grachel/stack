@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+      layout:decorator="home/layout">
 <head>
     <title>Stack Application - [[${post.getTitle()}]]</title>
 </head>
@@ -30,36 +30,48 @@
     <br><br>
 
     <script th:inline="javascript">
+        /*<![CDATA[*/
+
         $(document).ready(function(){
+            console.log("xxxx")
             $("button").click(function(){
-                $.post("comment",
-                {
-                  postid: /*[[${post.getId()}]]*/,
-                  body: $("#textareaID").val()
-                },
-                function(comment){
-                    $( ".comments" ).append(
-                    "<ul>
-                        <li>" + comment.getScore() + "</li>
-                        <li>" + comment.getBody() + "</li>
-                        <li>" + comment.getCreationdate() + "</li>
-                        <li>" + comment.getUsersByUserid().getDisplayname() + "</li>
-                    </ul>" );
+                console.log(1 + $("#textareaID").val())
+                $.ajax({
+                    type: "POST",
+                    url: "/comment",
+                    data: { postid: [[${post.getId()}]], body: $("#textareaID").val() },
+                    done :
+                        function(comment){
+                            $( ".comments" ).append(
+                                "<ul><li>"
+                                + comment.getScore()
+                                + "</li><li>"
+                                + comment.getBody()
+                                + "</li><li>"
+                                + comment.getCreationdate()
+                                + "</li><li>"
+                                + comment.getUsersByUserid().getDisplayname()
+                                + "</li></ul>" );
+                        }
                 });
             });
         });
 
         $(document).ready(function(){
             $( ".score" ).click(function(event) {
-                 $.post("score",
-                    {
-                      id: event.target.id
-                    },
-                    function(score){
+                $.ajax({
+                    type: "POST",
+                    url: "score",
+                    data: {xxx: event.target.id},
+                    success: function (score) {
                         $(".score").val(score);
-                    });
+                    }
+                });
             });
         });
+
+        /*]]>*/
+
     </script>
 </div>
 </body>
