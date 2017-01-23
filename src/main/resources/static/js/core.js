@@ -43,15 +43,52 @@ $( document ).ready(function() {
 
     $(".postUp").click(function (e) {
         var pos_id = e.target.parentElement.parentElement.id;
+        scoreUp(pos_id)
+    });
+
+    $(".answUp").click(function (e) {
+        var pos_id = e.target.parentElement.id;
+        scoreUp(pos_id)
+    });
+
+    function scoreUp(postid) {
         $.ajax({
             type: "POST",
             url: "/post/score",
             dataType: "json",
-            data: {id: pos_id.replace('pos', '')},
-            success: function (comment) {
-                var id = "#pos" + comment.id;
-                $(id).find(".postUp").text(comment.score);
+            data: {id: postid },
+            success: function (post) {
+                var id = "#" + post.id;
+                $(id).find('.vote').first().text(post.score);
+            }
+        });
+    }
+
+
+
+    $(".postBtn").on("click", function (e) {
+        var id = e.target.parentElement.parentElement.parentElement.id;
+        var text = $("#subAnswer").find("textarea").val()
+        $.ajax({
+            type: "POST",
+            url: "/post/answer",
+            dataType: "json",
+            data: {postid: id.replace("pos", ""), body: text},
+            success: function(answer) {
+                $("#answers").append("<div class=\"post\" id=\""
+                    + answer.id
+                    + "\"><a class=\"vote answUp glyphicon glyphicon-chevron-up\">0</a> <textarea class=\"post\" readonly>"
+                    + answer.body
+                    + "</textarea><span class=\"datetime\">Posted by "
+                    + answer.user
+                    + ", "
+                    + answer.date
+                    +"</span></div>");
+                $("#subAnswer").find("textarea").val("")
             }
         });
     });
 });
+
+
+

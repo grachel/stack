@@ -42,6 +42,10 @@ public class Post extends Common {
         setOwner(current);
     }
 
+    public Post(PostsEntity e) {
+        this.entity = e;
+    }
+
     public void findById(String s) {
         entity = session.get(PostsEntity.class, Integer.parseInt(s));
     }
@@ -63,7 +67,7 @@ public class Post extends Common {
     @SuppressWarnings("unchecked")
     public static List<Post> findAll(Session session) {
         List<Post> result = new ArrayList<>();
-        List<PostsEntity> entities = (List<PostsEntity>) session.createQuery("from PostsEntity order by id desc").list();
+        List<PostsEntity> entities = (List<PostsEntity>) session.createQuery("from PostsEntity where posttype = 'Q' order by id desc").list();
         for(PostsEntity entity : entities){
             result.add(new Post(entity, session));
         }
@@ -169,6 +173,16 @@ public class Post extends Common {
         return result;
     }
 
+    public Collection<Post> getAnswers() {
+        Collection<Post> result = new ArrayList<>();
+
+        for(PostsEntity e : entity.getPostsesById_0()){
+            result.add(new Post(e));
+        }
+
+        return result;
+    }
+
     public List<Vote> getVotes() {
         List<Vote> result = new ArrayList<>();
         Query query = session.createQuery("from VotesEntity where postid=:id");
@@ -207,5 +221,9 @@ public class Post extends Common {
 
     public void incScore() {
         entity.setScore(entity.getScore() + 1);
+    }
+
+    public void setParent(String postid) {
+        entity.setPostsByParentid(session.get(PostsEntity.class, Integer.parseInt(postid)));
     }
 }

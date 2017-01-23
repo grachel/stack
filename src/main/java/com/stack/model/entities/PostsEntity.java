@@ -214,7 +214,8 @@ public class PostsEntity {
         this.postsByParentid = postsByParentid;
     }
 
-    @OneToMany(mappedBy = "postsByParentid")
+    @OneToMany(mappedBy = "postsByParentid", fetch = FetchType.EAGER)
+    @OrderBy("score desc, id")
     public Collection<PostsEntity> getPostsesById_0() {
         return postsesById_0;
     }

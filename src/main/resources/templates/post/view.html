@@ -6,12 +6,13 @@
 </head>
 <body>
 <div layout:fragment="content" class="content">
-    <div th:id="'pos' + ${post.getId()}">
-        <span class="title">[[${post.getTitle()}]], </span><span class="datetime">Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()}]].</span>
+    <div th:id="${post.getId()}">
+        <span class="title">[[${post.getTitle()}]]</span>
 
         <div class="post">
             <a class="vote postUp glyphicon glyphicon-chevron-up">[[${post.getScore()}]]</a>
             <textarea class="post" readonly>[[${post.getBody()}]]</textarea>
+            <span class="datetime">Posted by [[${post.getOwner().getDisplayName()}]], [[${post.getCreationDate()}]].</span>
         </div>
 
         <div class="comments">
@@ -33,6 +34,25 @@
                     <button type="button" class="commBtn btn btn-success">Submit</button>
                 </form>
         </div>
+
+        <div id="answers">
+            <div class="post" th:each="answer : ${post.getAnswers()}" th:id="${answer.getId()}">
+                <a class="vote answUp glyphicon glyphicon-chevron-up">[[${answer.getScore()}]]</a>
+                <textarea class="post" readonly>[[${answer.getBody()}]]</textarea>
+                <span class="datetime">Posted by [[${answer.getOwner().getDisplayName()}]], [[${answer.getCreationDate()}]].</span>
+            </div>
+        </div>
+
+        <div id="subAnswer">
+            <h4>Sumbit an answer:</h4>
+            <form role="form">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" required></textarea>
+                </div>
+                <button type="button" class="postBtn btn btn-success">Submit</button>
+            </form>
+        </div>
+
     </div>
 </div>
 </body>

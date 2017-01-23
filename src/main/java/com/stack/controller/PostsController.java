@@ -1,5 +1,6 @@
 package com.stack.controller;
 
+import com.stack.json.Answer;
 import com.stack.json.Score;
 import com.stack.model.dao.Post;
 import com.stack.model.dao.User;
@@ -88,5 +89,21 @@ public class PostsController {
 
         post.save();
         return new Score(post.getId(), post.getScore());
+    }
+
+    @RequestMapping(value = "answer", method = RequestMethod.POST)
+    public @ResponseBody
+    Answer answer(@RequestParam(value = "postid") String postid,
+                  @RequestParam(value = "body") String body) {
+
+        Post post = new Post(User.getCurrentUser());
+        post.setTitle("");
+        post.setBody(body);
+        post.setType("A");
+        post.setCreationDate(new Timestamp(System.currentTimeMillis()));
+        post.setParent(postid);
+
+        post.save();
+        return new Answer(post.getId(), post.getBody(), post.getOwner().getDisplayName(), post.getCreationDate());
     }
 }
