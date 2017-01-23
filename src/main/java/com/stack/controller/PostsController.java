@@ -26,7 +26,7 @@ public class PostsController {
     }
 
     @RequestMapping(value = "ask", method = RequestMethod.POST)
-    public ModelAndView registration(@RequestParam(value = "title") String title,
+    public ModelAndView ask(@RequestParam(value = "title") String title,
                                      @RequestParam(value = "body") String body) {
 
         Post post = new Post(User.getCurrentUser());
