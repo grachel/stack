@@ -2,17 +2,17 @@ $( document ).ready(function() {
 
     autosize(document.querySelectorAll('textarea'));
 
-    $(".commBtn").on("click", function (e) {
+    $(document).on("click", ".commBtn", function (e) {
         var id = e.target.parentElement.parentElement.parentElement.id;
-        var text = $("#" + id).find(".comments").find("textarea").val()
+        var text = $("#" + id).find(".comments").first().find("textarea").val()
         $.ajax({
             type: "POST",
             url: "/comment",
             dataType: "json",
-            data: {postid: id.replace("pos", ""), body: text},
+            data: {postid: id, body: text},
             success: function(comment) {
-                var id = "#pos" + comment.postid;
-                $(id).find("tbody").append(
+                var id = "#" + comment.postid;
+                $(id).find("tbody").first().append(
                     "<tr><td><a id=\"com"
                     + comment.id
                     + "\" class=\"vote commUp glyphicon glyphicon-chevron-up\">0</a></td><td>"
@@ -22,7 +22,7 @@ $( document ).ready(function() {
                     + ", on "
                     + comment.date
                     + "</td></tr>");
-                $(id).find(".comments").find("textarea").val("");
+                $(id).find(".comments").first().find("textarea").val("");
             }
         });
     });
@@ -83,7 +83,7 @@ $( document ).ready(function() {
                     + answer.user
                     + ", "
                     + answer.date
-                    +"</span></div>");
+                    +"</span><div class=\"comments\"><table><tbody class=\"tcomm\"></tbody></table><h4>Leave a Comment:</h4><form role=\"form\"><div class=\"form-group\"><textarea class=\"form-control\" rows=\"3\" required></textarea></div><button type=\"button\" class=\"commBtn btn btn-success\">Submit</button></form></div></div>");
                 $("#subAnswer").find("textarea").val("")
             }
         });

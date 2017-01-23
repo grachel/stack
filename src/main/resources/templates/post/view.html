@@ -40,6 +40,25 @@
                 <a class="vote answUp glyphicon glyphicon-chevron-up">[[${answer.getScore()}]]</a>
                 <textarea class="post" readonly>[[${answer.getBody()}]]</textarea>
                 <span class="datetime">Posted by [[${answer.getOwner().getDisplayName()}]], [[${answer.getCreationDate()}]].</span>
+                <div class="comments">
+                    <table>
+                        <tbody class="tcomm">
+                        <tr th:each="comment : ${answer.getCommentaries()}">
+                            <td>
+                                <a th:id="'com' + ${comment.getId()}" class="vote commUp glyphicon glyphicon-chevron-up">[[${comment.getScore()}]]</a>
+                            </td>
+                            <td th:text="${comment.getBody() + ' - ' + comment.getUsername() + ', on ' + comment.getCreationDate()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="button" class="commBtn btn btn-success">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
 
