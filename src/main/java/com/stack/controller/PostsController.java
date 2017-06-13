@@ -1,6 +1,5 @@
 package com.stack.controller;
 
-import antlr.StringUtils;
 import com.stack.model.dto.ScoreDTO;
 import com.stack.model.entities.Post;
 import com.stack.model.entities.Tag;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 @Controller
 public class PostsController {
@@ -74,6 +72,7 @@ public class PostsController {
         post.setTitle(title);
         post.setBody(body);
         post.setCreationDate(new Timestamp(System.currentTimeMillis()));
+        post.setTags(new HashSet<>());
 
         String[] splitted = tags.split(" ");
 
@@ -84,10 +83,6 @@ public class PostsController {
                 t.setTag(tag);
 
                 tagRepository.save(t);
-            }
-
-            if(post.getTags() == null){
-                post.setTags(new HashSet<>());
             }
 
             post.getTags().add(t);

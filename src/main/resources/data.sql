@@ -7,3 +7,8 @@ insert into answers(id, creationDate, score, body, user, post) VALUES (1, SYSDAT
 insert into comments(id, creationDate, score, body, user, post, answer) VALUES (1, SYSDATE, 0, 'comment for post', 2, 1, null);
 insert into comments(id, creationDate, score, body, user, post, answer) VALUES (2, SYSDATE, 0, 'comment for answer', 2, null, 1);
 
+insert into tags(tag_id, tag) values (1, 'question');
+insert into tags(tag_id, tag) values (2, 'some');
+
+insert into posts_tags(id, tag_id) values (1, 1);
+insert into posts_tags(id, tag_id) values (1, 2);
