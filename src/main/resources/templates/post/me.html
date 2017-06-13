@@ -15,8 +15,7 @@
         </thead>
         <tbody>
         <tr th:each="post : ${posts}">
-            <td th:text="${post.getTitle()}"></td>
-            <td th:text="${post.getBody()}"></td>
+            <td><a href="#" th:href="|/post/${post.getId()}|" th:text="${post.getTitle()}"></a></td>
         </tr>
         </tbody>
     </table>

@@ -1,10 +1,13 @@
 package com.stack.controller;
 
+import antlr.StringUtils;
 import com.stack.model.dto.ScoreDTO;
 import com.stack.model.entities.Post;
+import com.stack.model.entities.Tag;
 import com.stack.model.entities.User;
 import com.stack.model.entities.Vote;
 import com.stack.model.repo.PostRepository;
+import com.stack.model.repo.TagRepository;
 import com.stack.model.repo.VoteRepository;
 import com.stack.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 @Controller
 public class PostsController {
@@ -30,10 +36,23 @@ public class PostsController {
     @Autowired
     VoteRepository voteRepository;
 
+    @Autowired
+    TagRepository tagRepository;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView home() {
+    public ModelAndView home(@RequestParam(value = "t", required=false) String t) {
         ModelAndView model = new ModelAndView();
-        model.addObject("posts", postRepository.findAll());
+
+        Iterable<Post> posts = new ArrayList<>();
+        if(t != null){
+            Tag x = tagRepository.findByTag(t);
+            if(x != null) {
+                posts = x.getPosts();
+            }
+        } else {
+            posts = postRepository.findAll();
+        }
+        model.addObject("posts", posts);
         model.setViewName("home/home");
         return model;
     }
@@ -47,13 +66,32 @@ public class PostsController {
 
     @RequestMapping(value = "/post/ask", method = RequestMethod.POST)
     public ModelAndView ask(@RequestParam(value = "title") String title,
-                            @RequestParam(value = "body") String body) {
+                            @RequestParam(value = "body") String body,
+                            @RequestParam(value = "tags") String tags) {
 
         Post post = new Post();
         post.setUser(userService.getCurrentUser());
         post.setTitle(title);
         post.setBody(body);
         post.setCreationDate(new Timestamp(System.currentTimeMillis()));
+
+        String[] splitted = tags.split(" ");
+
+        for(String tag : splitted){
+            Tag t = tagRepository.findByTag(tag);
+            if(t == null){
+                t = new Tag();
+                t.setTag(tag);
+
+                tagRepository.save(t);
+            }
+
+            if(post.getTags() == null){
+                post.setTags(new HashSet<>());
+            }
+
+            post.getTags().add(t);
+        }
 
         postRepository.save(post);
 

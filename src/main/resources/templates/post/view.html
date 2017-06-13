@@ -7,6 +7,10 @@
 <body>
 <div layout:fragment="content" class="content">
     <div>
+        <div th:each="tag : ${post.getTags()}">
+            <a th:text="|#${tag.getTag()} |" th:href="|/?t=${tag.getTag()}|"></a>
+        </div>
+
         <span class="title" th:text="${post.getTitle()}"></span>
 
         <div class="post">
