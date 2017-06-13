@@ -10,7 +10,7 @@
         <span class="title" th:text="${post.getTitle()}"></span>
 
         <div class="post">
-            <a class="vote postUp glyphicon glyphicon-chevron-up" th:id="${post.getId()}" th:text="${post.getScore()}"></a>
+            <a class="vote postUp glyphicon glyphicon-chevron-up" data-type="post" th:id="${post.getId()}" th:text="${post.getScore()}"></a>
             <textarea class="post" readonly="readonly" th:text="${post.getBody()}"></textarea>
             <span class="datetime" th:text="|Posted by ${post.getUser().getLogin()}, ${post.getCreationDate()}.|"></span>
         </div>
@@ -20,7 +20,7 @@
                     <tbody class="tcomm">
                     <tr th:each="comment : ${post.getComments()}">
                         <td>
-                            <a th:id="${comment.getId()}" class="vote commUp glyphicon glyphicon-chevron-up" th:text="${comment.getScore()}"></a>
+                            <a th:id="${comment.getId()}" data-type="comment" class="vote commUp glyphicon glyphicon-chevron-up" th:text="${comment.getScore()}"></a>
                         </td>
                         <td th:text="|${comment.getBody()} - ${comment.getUser().getLogin()}, on ${comment.getCreationDate()}|"></td>
                     </tr>
@@ -38,7 +38,7 @@
 
         <div id="answers">
             <div class="post" th:each="answer : ${post.getAnswers()}">
-                <a th:id="${answer.getId()}" class="vote answUp glyphicon glyphicon-chevron-up" th:text="${answer.getScore()}"></a>
+                <a th:id="${answer.getId()}" data-type="answer" class="vote answUp glyphicon glyphicon-chevron-up" th:text="${answer.getScore()}"></a>
                 <textarea class="post" readonly="readonly" th:text="${answer.getBody()}"></textarea>
                 <span class="datetime" th:text="|Posted by ${answer.getUser().getLogin()}, ${answer.getCreationDate()}.|"></span>
                 <div class="comments">
@@ -46,7 +46,7 @@
                         <tbody class="tcomm">
                         <tr th:each="comment : ${answer.getComments()}">
                             <td>
-                                <a th:id="${comment.getId()}" class="vote commUp glyphicon glyphicon-chevron-up" th:text="${comment.getScore()}"></a>
+                                <a th:id="${comment.getId()}" data-type="comment" class="vote commUp glyphicon glyphicon-chevron-up" th:text="${comment.getScore()}"></a>
                             </td>
                             <td th:text="|${comment.getBody()} - ${comment.getUser().getLogin()}, on ${comment.getCreationDate()}|"></td>
                         </tr>

@@ -1,44 +1,18 @@
 $( document ).ready(function() {
     autosize(document.querySelectorAll('textarea'));
 
-     $(".postUp").click(function (e) {
+     $(".vote").click(function (e) {
         var element = $(this);
          $.ajax({
              type: "POST",
-             url: "/post/vote",
+             url: "/" + element.attr('data-type') + "/vote",
              dataType: "json",
-             data: {id: e.target.id },
-             success: function (post) {
-                element.text(post.score);
+             data: {id: element.attr('id') },
+             success: function (response) {
+                element.text(response.score);
              }
          });
      });
-
-    $(".commUp").click(function (e) {
-        var element = $(this);
-        $.ajax({
-            type: "POST",
-            url: "/comment/vote",
-            dataType: "json",
-            data: {id: e.target.id },
-            success: function (comment) {
-                element.text(comment.score);
-            }
-        });
-    });
-
-    $(".answUp").click(function (e) {
-        var element = $(this);
-        $.ajax({
-            type: "POST",
-            url: "/answer/vote",
-            dataType: "json",
-            data: {id: e.target.id },
-            success: function (answer) {
-                element.text(answer.score);
-            }
-        });
-    });
 });
 
 
