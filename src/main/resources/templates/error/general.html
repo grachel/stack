@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="home/layout">
+<head>
+    <title>Stack Application - Error</title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <h1 th:inline="text" th:text="|${status} - ${error}!|"></h1>
+    <p th:text="${timestamp}"></p>
+    <p th:text="${path}"></p>
+    <p th:text="${trace}"></p>
+</div>
+</body>
+</html>

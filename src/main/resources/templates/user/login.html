@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="home/layout">
+<head>
+    <title>Stack Application - Login</title>
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <form class="form-narrow form-horizontal" method="post" th:action="@{login}">
+        <th:block th:if="${param.error != null}">
+            <div th:replace="fragments/alert :: alert (type='danger', message='Invalid username or password. Please try again.')">Alert</div>
+        </th:block>
+        <th:block th:if="${param.logout != null}">
+            <div th:replace="fragments/alert :: alert (type='info', message='You have been logged out.')">Alert</div>
+        </th:block>
+        <fieldset>
+            <legend>Please Sign In</legend>
+            <div class="form-group">
+                <label for="username" class="col-lg-2 control-label">User Name</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="username" placeholder="User Name" name="username" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="_spring_security_remember_me" /> Remember me
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default">Sign in</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <p>New here? <a href="signup" th:href="@{/registration}">Sign Up</a></p>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
