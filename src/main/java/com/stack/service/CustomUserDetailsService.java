@@ -15,11 +15,11 @@ import java.util.Collection;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    UserService userService;
+    DatabaseService databaseService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserRepositoryUserDetails(userService.findByLogin(username));
+        return new UserRepositoryUserDetails(databaseService.findUserByLogin(username));
     }
 
     private final static class UserRepositoryUserDetails extends AbstractUserDetails {

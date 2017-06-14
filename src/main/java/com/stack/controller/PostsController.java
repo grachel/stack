@@ -5,10 +5,7 @@ import com.stack.model.entities.Post;
 import com.stack.model.entities.Tag;
 import com.stack.model.entities.User;
 import com.stack.model.entities.Vote;
-import com.stack.model.repo.PostRepository;
-import com.stack.model.repo.TagRepository;
-import com.stack.model.repo.VoteRepository;
-import com.stack.service.UserService;
+import com.stack.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,16 +23,7 @@ import java.util.HashSet;
 public class PostsController {
 
     @Autowired
-    UserService userService;
-
-    @Autowired
-    PostRepository postRepository;
-
-    @Autowired
-    VoteRepository voteRepository;
-
-    @Autowired
-    TagRepository tagRepository;
+    DatabaseService databaseService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView home(@RequestParam(value = "t", required=false) String t) {
@@ -43,12 +31,12 @@ public class PostsController {
 
         Iterable<Post> posts = new ArrayList<>();
         if(t != null){
-            Tag x = tagRepository.findByTag(t);
+            Tag x = databaseService.findTag(t);
             if(x != null) {
                 posts = x.getPosts();
             }
         } else {
-            posts = postRepository.findAll();
+            posts = databaseService.findAllPosts();
         }
         model.addObject("posts", posts);
         model.setViewName("home/home");
@@ -68,7 +56,7 @@ public class PostsController {
                             @RequestParam(value = "tags") String tags) {
 
         Post post = new Post();
-        post.setUser(userService.getCurrentUser());
+        post.setUser(databaseService.getCurrentUser());
         post.setTitle(title);
         post.setBody(body);
         post.setCreationDate(new Timestamp(System.currentTimeMillis()));
@@ -77,18 +65,18 @@ public class PostsController {
         String[] splitted = tags.split(" ");
 
         for(String tag : splitted){
-            Tag t = tagRepository.findByTag(tag);
+            Tag t = databaseService.findTag(tag);
             if(t == null){
                 t = new Tag();
                 t.setTag(tag);
 
-                tagRepository.save(t);
+                databaseService.save(t);
             }
 
             post.getTags().add(t);
         }
 
-        postRepository.save(post);
+        databaseService.save(post);
 
         return new ModelAndView("redirect:/post/my");
     }
@@ -96,7 +84,7 @@ public class PostsController {
     @RequestMapping(value = "post/my", method = RequestMethod.GET)
     public ModelAndView me() {
         ModelAndView model = new ModelAndView();
-        model.addObject("posts", userService.getCurrentUser().getPosts());
+        model.addObject("posts", databaseService.getCurrentUser().getPosts());
         model.setViewName("post/me");
         return model;
 
@@ -104,10 +92,10 @@ public class PostsController {
 
     @RequestMapping(value = "post/{id}", method = RequestMethod.GET)
     public ModelAndView view(@PathVariable String id) {
-        Post post = postRepository.findOne(Integer.parseInt(id));
+        Post post = databaseService.findPost(Integer.parseInt(id));
         ModelAndView model = new ModelAndView();
         model.addObject("post", post);
-        model.addObject("currUser", userService.getCurrentUser());
+        model.addObject("currUser", databaseService.getCurrentUser());
         model.setViewName("post/view");
         return model;
     }
@@ -115,10 +103,10 @@ public class PostsController {
     @RequestMapping(value = "/post/vote", method = RequestMethod.POST)
     public @ResponseBody
     ScoreDTO vote(@RequestParam(value = "id") String id) {
-        User user = userService.getCurrentUser();
-        Post post = postRepository.findOne(Integer.parseInt(id));
+        User user = databaseService.getCurrentUser();
+        Post post = databaseService.findPost(Integer.parseInt(id));
 
-        Vote vote = voteRepository.findByUserAndPost(user, post);
+        Vote vote = databaseService.findVoteByUserAndPost(user, post);
         if(vote == null && !user.equals(post.getUser())){
             vote = new Vote();
             vote.setUser(user);
@@ -126,8 +114,8 @@ public class PostsController {
 
             post.setScore(post.getScore() + 1);
 
-            voteRepository.save(vote);
-            postRepository.save(post);
+            databaseService.save(vote);
+            databaseService.save(post);
         }
 
         return new ScoreDTO(post.getScore());

@@ -18,7 +18,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "answers", schema = "public")
-public class Answer {
+public class Answer implements IEntity {
     private int id;
     private Timestamp creationDate;
     private Integer score = 0;

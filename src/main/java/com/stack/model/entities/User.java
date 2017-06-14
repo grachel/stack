@@ -16,7 +16,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "users", schema = "public")
-public class User {
+public class User implements IEntity {
     private int id;
     private Timestamp creationDate;
     private String login;
