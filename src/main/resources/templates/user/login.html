@@ -5,7 +5,7 @@
     <title>Stack Application - Login</title>
 </head>
 <body>
-<div layout:fragment="content" class="content">
+<div layout:fragment="content" class="content content-narrow">
     <form class="form-narrow form-horizontal" method="post" th:action="@{login}">
         <th:block th:if="${param.error != null}">
             <div th:replace="fragments/alert :: alert (type='danger', message='Invalid username or password. Please try again.')">Alert</div>

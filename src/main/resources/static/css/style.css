@@ -22,8 +22,8 @@ body {
 
 .content {
     margin-top: 50px;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .center{
@@ -97,3 +97,7 @@ textarea.post {
     clear: both;
 }
 
+.content-narrow{
+    width: 60%;
+    margin-left: 15%;
+}
