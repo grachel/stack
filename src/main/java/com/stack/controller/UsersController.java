@@ -2,6 +2,7 @@ package com.stack.controller;
 
 import com.stack.model.entities.User;
 import com.stack.model.repo.UserRepository;
+import com.stack.service.DatabaseService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UsersController {
 
     @Autowired
-    UserRepository userRepository;
+    DatabaseService databaseService;
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
@@ -69,7 +70,7 @@ public class UsersController {
         user.setLogin(login);
         user.setEmail(email);
 
-        userRepository.save(user);
+        databaseService.save(user);
 
         return new ModelAndView("redirect:/");
     }
