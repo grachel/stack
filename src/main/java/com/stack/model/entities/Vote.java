@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "votes", schema = "public")
-public class Vote implements IEntity {
+public class Vote {
     private int id;
     private Post post;
     private Answer answer;

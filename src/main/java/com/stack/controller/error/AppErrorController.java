@@ -1,4 +1,4 @@
-package com.stack.controller;
+package com.stack.controller.error;
 
 import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.autoconfigure.web.ErrorController;
@@ -31,10 +31,8 @@ public class AppErrorController implements ErrorController{
         return ERROR_PATH;
     }
 
-    private Map<String, Object> getErrorAttributes(HttpServletRequest request,
-                                                   boolean includeStackTrace) {
+    private Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
         RequestAttributes requestAttributes = new ServletRequestAttributes(request);
-        return this.errorAttributes.getErrorAttributes(requestAttributes,
-                includeStackTrace);
+        return this.errorAttributes.getErrorAttributes(requestAttributes, includeStackTrace);
     }
 }

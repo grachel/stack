@@ -1,4 +1,4 @@
-package com.stack.model.repo;
+package com.stack.model.repo.vote;
 
 import com.stack.model.entities.Answer;
 import com.stack.model.entities.Comment;

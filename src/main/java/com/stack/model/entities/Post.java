@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "posts", schema = "public")
-public class Post implements IEntity {
+public class Post {
     private int id;
     private Timestamp creationDate;
     private Integer score = 0;

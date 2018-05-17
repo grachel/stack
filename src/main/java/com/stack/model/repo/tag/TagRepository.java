@@ -1,4 +1,4 @@
-package com.stack.model.repo;
+package com.stack.model.repo.tag;
 
 import com.stack.model.entities.Tag;
 import org.springframework.data.repository.CrudRepository;

@@ -1,10 +1,12 @@
 package com.stack.controller;
 
-import com.stack.model.dto.ScoreDTO;
 import com.stack.model.entities.Answer;
 import com.stack.model.entities.User;
 import com.stack.model.entities.Vote;
-import com.stack.service.DatabaseService;
+import com.stack.model.repo.answer.AnswerRepository;
+import com.stack.model.repo.post.PostRepository;
+import com.stack.model.repo.user.UserRepository;
+import com.stack.model.repo.vote.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,30 +21,40 @@ import java.sql.Timestamp;
 public class AnswersController {
 
     @Autowired
-    DatabaseService databaseService;
+    AnswerRepository answerRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PostRepository postRepository;
+
+    @Autowired
+    VoteRepository voteRepository;
 
     @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public ModelAndView answer(@RequestParam(value = "postid") String postid,
                      @RequestParam(value = "body") String body) {
 
         Answer answer = new Answer();
-        answer.setUser(databaseService.getCurrentUser());
+        answer.setUser(userRepository.getCurrentUser());
         answer.setBody(body);
         answer.setCreationDate(new Timestamp(System.currentTimeMillis()));
-        answer.setPost(databaseService.findPost(Integer.parseInt(postid)));
+        answer.setPost(postRepository.findOne(Integer.parseInt(postid)));
 
-        databaseService.save(answer);
+        answerRepository.save(answer);
 
         return new ModelAndView("redirect:/post/" + postid);
     }
 
     @RequestMapping(value = "/answer/vote", method = RequestMethod.POST)
     public @ResponseBody
-    ScoreDTO vote(@RequestParam(value = "id") String id) {
-        User user = databaseService.getCurrentUser();
-        Answer answer = databaseService.findAnswer(Integer.parseInt(id));
+    Integer vote(@RequestParam(value = "id") String id) {
+        User user = userRepository.getCurrentUser();
 
-        Vote vote = databaseService.findVoteByUserAndAnswer(user, answer);
+        Answer answer = answerRepository.findOne(Integer.parseInt(id));
+
+        Vote vote = voteRepository.findByUserAndAnswer(user, answer);
         if(vote == null && !user.equals(answer.getUser())){
             vote = new Vote();
             vote.setUser(user);
@@ -50,11 +62,11 @@ public class AnswersController {
 
             answer.setScore(answer.getScore() + 1);
 
-            databaseService.save(vote);
-            databaseService.save(answer);
+            voteRepository.save(vote);
+            answerRepository.save(answer);
         }
 
-        return new ScoreDTO(answer.getScore());
+        return answer.getScore();
     }
 
 }

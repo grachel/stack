@@ -18,7 +18,7 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "comments", schema = "public")
-public class Comment implements IEntity {
+public class Comment {
     private int id;
     private Integer score = 0;
     private String body;

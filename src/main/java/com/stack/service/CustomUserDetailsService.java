@@ -1,6 +1,8 @@
 package com.stack.service;
 
 import com.stack.model.entities.User;
+import com.stack.model.repo.user.UserRepository;
+import com.stack.service.abstr.AbstractUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,11 +17,11 @@ import java.util.Collection;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    DatabaseService databaseService;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserRepositoryUserDetails(databaseService.findUserByLogin(username));
+        return new UserRepositoryUserDetails(userRepository.findByLogin(username));
     }
 
     private final static class UserRepositoryUserDetails extends AbstractUserDetails {

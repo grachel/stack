@@ -1,4 +1,4 @@
-package com.stack.model.repo;
+package com.stack.model.repo.answer;
 
 import com.stack.model.entities.Answer;
 import org.springframework.data.repository.CrudRepository;

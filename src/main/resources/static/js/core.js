@@ -9,7 +9,7 @@ $( document ).ready(function() {
              dataType: "json",
              data: {id: element.attr('id') },
              success: function (response) {
-                element.text(response.score);
+                element.text(response);
              }
          });
      });

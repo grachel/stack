@@ -1,4 +1,4 @@
-package com.stack.service;
+package com.stack.service.abstr;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

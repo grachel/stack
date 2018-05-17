@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "tags", schema = "public")
-public class Tag implements IEntity {
+public class Tag {
     private int id;
     private String tag;
     private Set<Post> posts;
