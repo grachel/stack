@@ -1,12 +1,12 @@
 package com.stack.dto;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class TagDTO {
 
     private int id;
     private String tag;
-    private Set<PostDTO> posts;
+    private Collection<PostDTO> posts;
 
     public int getId() {
         return id;
@@ -24,11 +24,11 @@ public class TagDTO {
         this.tag = tag;
     }
 
-    public Set<PostDTO> getPosts() {
+    public Collection<PostDTO> getPosts() {
         return posts;
     }
 
-    public void setPosts(Set<PostDTO> posts) {
+    public void setPosts(Collection<PostDTO> posts) {
         this.posts = posts;
     }
 }

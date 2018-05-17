@@ -2,7 +2,6 @@ package com.stack.dto;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Set;
 
 public class PostDTO {
 
@@ -15,7 +14,7 @@ public class PostDTO {
     private Collection<AnswerDTO> answers;
     private Collection<CommentDTO> comments;
     private Collection<VoteDTO> votes;
-    private Set<TagDTO> tags;
+    private Collection<TagDTO> tags;
 
     public int getId() {
         return id;
@@ -89,11 +88,11 @@ public class PostDTO {
         this.votes = votes;
     }
 
-    public Set<TagDTO> getTags() {
+    public Collection<TagDTO> getTags() {
         return tags;
     }
 
-    public void setTags(Set<TagDTO> tags) {
+    public void setTags(Collection<TagDTO> tags) {
         this.tags = tags;
     }
 }
