@@ -5,16 +5,15 @@ import java.util.Collection;
 
 public class PostDTO {
 
+    private String title;
+    private Collection<String> tags;
     private int id;
-    private Timestamp creationDate;
     private Integer score = 0;
     private String body;
-    private String title;
-    private UserDTO user;
-    private Collection<AnswerDTO> answers;
+    private String user;
+    private Timestamp creationDate;
     private Collection<CommentDTO> comments;
-    private Collection<VoteDTO> votes;
-    private Collection<TagDTO> tags;
+    private Collection<AnswerDTO> answers;
 
     public int getId() {
         return id;
@@ -56,11 +55,11 @@ public class PostDTO {
         this.title = title;
     }
 
-    public UserDTO getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -80,19 +79,11 @@ public class PostDTO {
         this.comments = comments;
     }
 
-    public Collection<VoteDTO> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Collection<VoteDTO> votes) {
-        this.votes = votes;
-    }
-
-    public Collection<TagDTO> getTags() {
+    public Collection<String> getTags() {
         return tags;
     }
 
-    public void setTags(Collection<TagDTO> tags) {
+    public void setTags(Collection<String> tags) {
         this.tags = tags;
     }
 }

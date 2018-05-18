@@ -1,7 +1,6 @@
 package com.stack.dto;
 
 import java.sql.Timestamp;
-import java.util.Collection;
 
 public class CommentDTO {
 
@@ -9,10 +8,7 @@ public class CommentDTO {
     private Integer score = 0;
     private String body;
     private Timestamp creationDate;
-    private PostDTO post;
-    private AnswerDTO answer;
-    private UserDTO user;
-    private Collection<VoteDTO> votes;
+    private String user;
 
     public int getId() {
         return id;
@@ -46,35 +42,11 @@ public class CommentDTO {
         this.creationDate = creationDate;
     }
 
-    public PostDTO getPost() {
-        return post;
-    }
-
-    public void setPost(PostDTO post) {
-        this.post = post;
-    }
-
-    public AnswerDTO getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(AnswerDTO answer) {
-        this.answer = answer;
-    }
-
-    public UserDTO getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(String user) {
         this.user = user;
-    }
-
-    public Collection<VoteDTO> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Collection<VoteDTO> votes) {
-        this.votes = votes;
     }
 }

@@ -6,13 +6,11 @@ import java.util.Collection;
 public class AnswerDTO {
 
     private int id;
-    private Timestamp creationDate;
     private Integer score = 0;
     private String body;
-    private UserDTO user;
-    private PostDTO post;
+    private String user;
+    private Timestamp creationDate;
     private Collection<CommentDTO> comments;
-    private Collection<VoteDTO> votes;
 
     public int getId() {
         return id;
@@ -46,20 +44,12 @@ public class AnswerDTO {
         this.body = body;
     }
 
-    public UserDTO getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(String user) {
         this.user = user;
-    }
-
-    public PostDTO getPost() {
-        return post;
-    }
-
-    public void setPost(PostDTO post) {
-        this.post = post;
     }
 
     public Collection<CommentDTO> getComments() {
@@ -68,13 +58,5 @@ public class AnswerDTO {
 
     public void setComments(Collection<CommentDTO> comments) {
         this.comments = comments;
-    }
-
-    public Collection<VoteDTO> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Collection<VoteDTO> votes) {
-        this.votes = votes;
     }
 }
