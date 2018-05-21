@@ -26,10 +26,18 @@ public abstract class PostMapper {
 
     @AfterMapping
     void setTags(Post source, @MappingTarget PostDTO target){
-        List<String> tags = new ArrayList<>();
+        StringBuilder tags = new StringBuilder();
         for(Tag tag : source.getTags()){
-            tags.add(tag.getTag());
+            tags.append("#").append(tag.getTag()).append(" ");
         }
-        target.setTags(tags);
+        target.setTags(tags.toString().trim());
+    }
+
+    public List<PostDTO> mapCollection(Iterable<Post> source){
+        List<PostDTO> results = new ArrayList<>();
+        for(Post post : source){
+            results.add(PostMapper.INSTANCE.postToPostDTO(post));
+        }
+        return results;
     }
 }

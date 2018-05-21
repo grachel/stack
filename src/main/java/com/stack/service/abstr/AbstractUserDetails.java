@@ -7,6 +7,8 @@ import java.util.Collection;
 
 public class AbstractUserDetails implements UserDetails {
 
+    public static final long serialVersionUID = -1L;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

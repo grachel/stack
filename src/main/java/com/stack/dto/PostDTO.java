@@ -6,7 +6,7 @@ import java.util.Collection;
 public class PostDTO {
 
     private String title;
-    private Collection<String> tags;
+    private String tags;
     private int id;
     private Integer score = 0;
     private String body;
@@ -79,11 +79,11 @@ public class PostDTO {
         this.comments = comments;
     }
 
-    public Collection<String> getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(Collection<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 }
