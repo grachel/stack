@@ -41,14 +41,14 @@ public class CommentsController {
 
     @RequestMapping(value = "/comment/post", method = RequestMethod.POST)
     public @ResponseBody
-    String postComment(@RequestParam(value = "postid") String postid,
+    String postComment(@RequestParam(value = "id") String id,
                        @RequestParam(value = "body") String body) {
         String error = "";
         try {
             if (!StringUtils.isEmpty(body)) {
                 Comment comment = new Comment();
                 comment.setBody(body);
-                comment.setPost(postRepository.findOne(Integer.parseInt(postid)));
+                comment.setPost(postRepository.findOne(Integer.parseInt(id)));
                 comment.setUser(userRepository.getCurrentUser());
                 comment.setCreationDate(new Timestamp(System.currentTimeMillis()));
                 commentRepository.save(comment);
@@ -61,11 +61,11 @@ public class CommentsController {
 
     @RequestMapping(value = "/comment/answer", method = RequestMethod.POST)
     public @ResponseBody
-    String answerComment(@RequestParam(value = "answerid") String answerid,
+    String answerComment(@RequestParam(value = "id") String id,
                          @RequestParam(value = "body") String body) {
         String error = "";
         try {
-            Answer answer = answerRepository.findOne(Integer.parseInt(answerid));
+            Answer answer = answerRepository.findOne(Integer.parseInt(id));
 
             if (!StringUtils.isEmpty(body)) {
                 Comment comment = new Comment();

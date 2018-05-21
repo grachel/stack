@@ -1,6 +1,9 @@
 package com.stack.controller;
 
+import com.stack.dto.PostDTO;
+import com.stack.dto.mappers.PostMapper;
 import com.stack.model.entities.Answer;
+import com.stack.model.entities.Post;
 import com.stack.model.entities.User;
 import com.stack.model.entities.Vote;
 import com.stack.model.repo.answer.AnswerRepository;
@@ -35,21 +38,19 @@ public class AnswersController {
 
     @RequestMapping(value = "/answer", method = RequestMethod.POST)
     public @ResponseBody
-    String answer(@RequestParam(value = "postid") String postid,
-                  @RequestParam(value = "body") String body) {
-        String error = "";
-        try {
-            Answer answer = new Answer();
-            answer.setUser(userRepository.getCurrentUser());
-            answer.setBody(body);
-            answer.setCreationDate(new Timestamp(System.currentTimeMillis()));
-            answer.setPost(postRepository.findOne(Integer.parseInt(postid)));
+    PostDTO answer(@RequestParam(value = "postid") String postid,
+                   @RequestParam(value = "body") String body) {
+        Post parent = postRepository.findOne(Integer.parseInt(postid));
 
-            answerRepository.save(answer);
-        } catch (Exception e) {
-            error = e.getMessage();
-        }
-        return error;
+        Answer answer = new Answer();
+        answer.setUser(userRepository.getCurrentUser());
+        answer.setBody(body);
+        answer.setCreationDate(new Timestamp(System.currentTimeMillis()));
+        answer.setPost(parent);
+
+        answerRepository.save(answer);
+
+        return PostMapper.INSTANCE.postToPostDTO(parent);
     }
 
     @RequestMapping(value = "/answer/vote", method = RequestMethod.POST)
